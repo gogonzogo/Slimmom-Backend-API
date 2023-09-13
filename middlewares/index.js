@@ -1,6 +1,6 @@
 const ctrlWrapper = require('./ctrlWrapper');
 const validation = require('./validation');
-const authorizeUser = require('./authorizeUser');
+const authorizeUser = require('./authUser');
 const { session, sess } = require('./session');
 const upload = require('./multer')
 const { verifyUserEmail, emailVerified } = require('./nodemailer');
