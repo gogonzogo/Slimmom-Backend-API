@@ -1,8 +1,11 @@
-const { user: service } = require('../../services');
+const { users: service } = require('../../services');
 
-const userSignup = async (req, res) => {
-  const result = await service.userSignup(req);
+const userRegister = async (req, res) => {
+  const result = await service.userRegister(req);
   console.log(result)
+  res.send({
+  message: result,
+})
 };
 
-module.exports = userSignup;
+module.exports = userRegister;

@@ -3,6 +3,10 @@ const Joi = require('joi');
 const bcrypt = require('bcrypt');
 
 const userSchema = new Schema({
+  username: {
+    type: String,
+    required: true,
+  },
   password: {
     type: String,
     required: [true, 'Password is required'],
@@ -24,7 +28,7 @@ userSchema.methods.checkPassword = async function (loginPW) {
   return bcrypt.compare(loginPW, this.password);
 };
 
-const userValidationSchema = Joi.object({
+const registrationValidationSchema = Joi.object({
   email: Joi.string()
     .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } })
     .required(),
@@ -32,11 +36,13 @@ const userValidationSchema = Joi.object({
     // eslint-disable-next-line prefer-regex-literals
     .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$'))
     .required(),
+  username: Joi.string()
+  .required(),
 });
 
 const User = model('users', userSchema);
 
 module.exports = {
   User,
-  userValidationSchema,
+  registrationValidationSchema,
 };

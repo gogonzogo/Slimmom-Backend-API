@@ -5,7 +5,8 @@ const { nanoid } = require('nanoid');
 
 const userRegister = async (req) => {
   try {
-    console.log(req)
+    const message = `Welcome ${req.body.username}`
+    return message;
   } catch (error) {
     console.log(error)
   }

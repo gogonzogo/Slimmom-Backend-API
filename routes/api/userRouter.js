@@ -1,8 +1,8 @@
 const userRouter = require('express').Router();
 const { user: ctrl } = require('../../controllers');
 const { validation, ctrlWrapper, authUser, upload } = require('../../middlewares');
-const { joiUserSchema, subscriptionSchema } = require('../../models')
-
-userRouter.route('/users/login').post(validation(joiUserSchema), ctrlWrapper(ctrl.userRegiste));
+const { registrationValidationSchema } = require('../../models')
+// xomment workflow 
+userRouter.route('/users/register').post(validation(registrationValidationSchema), ctrlWrapper(ctrl.userRegister));
 
 module.exports = userRouter;
