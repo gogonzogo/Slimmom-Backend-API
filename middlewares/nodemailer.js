@@ -19,7 +19,7 @@ const verifyUserEmail = async (email, verificationToken) => {
       to: email,
       subject: 'Verify your email!',
       text: 'Please use the link below to verify your email address.',
-      html: `<p>Click the link below:</p><a href="http://localhost:3000/api/users/verify/${verificationToken}">Verify Email Link</a>`
+      html: `<p>Click the link below:</p>`
     };
     transporter.sendMail(verifyMessage);
   } catch (error) {
@@ -34,7 +34,7 @@ const emailVerified = async (email) => {
       to: email,
       subject: 'Thank you!',
       text: 'Email Verified!.',
-      html: `<p>Your email is verified! Once you login and begin adding contacts you can see them at the link below!:</p><a href="http://localhost:3000/api/contacts">Contacts</a>`
+      html: `<p>Your email is verified!:</p>`
     };
     transporter.sendMail(verifiedMessage);
   } catch (error) {
