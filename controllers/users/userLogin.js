@@ -24,11 +24,15 @@ const userLogin = async (req, res) => {
         return
     }
     res.status(200).json({
+        status: "Success",
+        code: 200,
+        token: req.session.userToken,
+        username: req.session.username,
         data: {
             // email: req.body.email, // for dev purposes
             message: "Login Successful, have fun slimMom!"
         },
-        token: req.session.userToken
+        
     });
 };
 

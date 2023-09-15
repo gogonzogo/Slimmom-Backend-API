@@ -21,6 +21,7 @@ const userLogin = async (req, res) => {
         });
         req.session.userToken = token;
         req.session.userId = validUser._id;
+        req.session.username = validUser.username;
         return 200
     } catch (err) {
         console.log('Error logging in user:', err);
