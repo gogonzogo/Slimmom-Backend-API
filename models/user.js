@@ -30,6 +30,7 @@ const registrationValidationSchema = Joi.object({
     .required(),
   password: Joi.string()
     // eslint-disable-next-line prefer-regex-literals
+    //rachel will update
     .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$'))
     .required(),
   username: Joi.string()

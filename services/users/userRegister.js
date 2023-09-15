@@ -2,7 +2,8 @@ const { User } = require('../../models');
 const bcrypt = require('bcrypt');
 const { nanoid } = require('nanoid');
 require('dotenv').config();
-
+// no response, return a number of response
+// salt and hash
 const generateUniqueToken = () => {
   return nanoid(32);
 };
@@ -10,9 +11,9 @@ const generateUniqueToken = () => {
 const userRegister = async (req) => {
   try {
     // Validate
-    const { username, password, email } = req.body;
-    if (!username || !password || !email) {
-      return { status: 400, message: 'Invalid input data' };
+  const { username, password, email } = req.body;
+  if (!username || !password || !email) {
+  return { status: 400, message: 'Invalid input data' };
     }
 
     // Check if the user already exists by email

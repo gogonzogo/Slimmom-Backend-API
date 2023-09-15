@@ -1,4 +1,5 @@
 const { users: service } = require('../../services');
+
 const userRegister = async (req, res) => {
   try {
     const result = await service.userRegister(req);
