@@ -37,9 +37,25 @@ const registrationValidationSchema = Joi.object({
   .required(),
 });
 
+const loginValidationSchema = Joi.object({
+  email: Joi.string()
+    .email({
+      minDomainSegments: 2,
+      tlds: {
+        allow: ["com", "net", "io", "gov", "edu", "mil", "org"],
+      },
+    })
+    .required(),
+  password: Joi.string()
+    // eslint-disable-next-line prefer-regex-literals
+    .pattern(new RegExp("^[a-zA-Z0-9]{3,30}$"))
+    .required(),
+});
+
 const User = model('users', userSchema);
 
 module.exports = {
   User,
   registrationValidationSchema,
+  loginValidationSchema
 };
