@@ -1,4 +1,4 @@
-const athorizeUser = (req, res, next) => {
+const authorizeUser = (req, res, next) => {
   if (!req.session.userToken) {
     res.status(401).json({
       status: "Unathorized",
@@ -12,4 +12,4 @@ const athorizeUser = (req, res, next) => {
   }
 };
 
-module.exports = athorizeUser;
+module.exports = authorizeUser;

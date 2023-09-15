@@ -1,7 +1,7 @@
 const { Food } = require('./foods');
 const { Diary } = require('./diary');
 const { Measurements } = require('./measurements');
-const { User, registrationValidationSchema } = require('./user');
+const { User, registrationValidationSchema, loginValidationSchema } = require('./user');
 
 module.exports = {
   Food,
@@ -9,4 +9,6 @@ module.exports = {
   Measurements,
   User,
   registrationValidationSchema,
+  loginValidationSchema,
+
 };

@@ -20,3 +20,5 @@ app.use((err, req, res, next) => {
 });
 
 module.exports = app;
+
+// http://localhost:5000/api
