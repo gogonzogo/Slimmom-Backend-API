@@ -16,10 +16,6 @@ const userSchema = new Schema({
     required: [true, 'Email is required'],
     unique: true,
   },
-  measurementType: {
-    type: String,
-    required: true,
-  },
 },
   { versionKey: false, timestamps: true }
 );
