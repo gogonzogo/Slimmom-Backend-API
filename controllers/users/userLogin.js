@@ -28,6 +28,7 @@ const userLogin = async (req, res) => {
         code: 200,
         token: req.session.userToken,
         username: req.session.username,
+        userId: req.session.userId,
         data: {
             // email: req.body.email, // for dev purposes
             message: "Login Successful, have fun slimMom!"
