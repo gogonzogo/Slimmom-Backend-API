@@ -56,16 +56,16 @@ const registrationValidationSchema = Joi.object({// joi validations are objects
       const hasSpecialChar = /(?=.*[!@#$%^&*])/.test(value);
       const hasNoSpaces = !/\s/.test(value);
 
-      // Check how many password requirements are met
+ 
       const requirementsMet = [hasLowerCase, hasUpperCase, hasDigit, hasSpecialChar, hasNoSpaces].filter(Boolean).length;
       
-      if (requirementsMet !== 5) { // if they are not all met, send this message
+      if (requirementsMet !== 5) { 
         return helpers.message('Password must include at least 1 capital letter, 1 number, 1 special character, and no spaces');
       }
 
       return value;
     })
-    .required(), // if empty, will send a default error message 
+    .required(),
 
 });
 
@@ -79,23 +79,22 @@ const loginValidationSchema = Joi.object({
 password: Joi.string()
     .min(8)
     .max(20)
-    .custom((value, helpers) => {// password.requirements
+    .custom((value, helpers) => {
       const hasLowerCase = /(?=.*[a-z])/.test(value);
       const hasUpperCase = /(?=.*[A-Z])/.test(value);
       const hasDigit = /(?=.*\d)/.test(value);
       const hasSpecialChar = /(?=.*[!@#$%^&*])/.test(value);
       const hasNoSpaces = !/\s/.test(value);
 
-      // Check how many password requirements are met
       const requirementsMet = [hasLowerCase, hasUpperCase, hasDigit, hasSpecialChar, hasNoSpaces].filter(Boolean).length;
       
-      if (requirementsMet !== 5) { // if they are not all met, send this message
+      if (requirementsMet !== 5) { 
         return helpers.message('Password must include at least 1 capital letter, 1 number, 1 special character, and no spaces');
       }
 
       return value;
     })
-    .required(), // if empty, will send a default error message 
+    .required(), 
 });
 
 const User = model('users', userSchema);
