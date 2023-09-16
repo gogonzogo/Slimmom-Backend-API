@@ -20,6 +20,8 @@ const userSchema = new Schema({
   { versionKey: false, timestamps: true }
 );
 
+// create a method for our userSchema
+// this method will hash the password and compare it to the hashed password in the database
 userSchema.methods.checkPassword = async function (loginPW) {
   return bcrypt.compare(loginPW, this.password);
 };
