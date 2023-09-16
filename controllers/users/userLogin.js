@@ -30,7 +30,6 @@ const userLogin = async (req, res) => {
         username: req.session.username,
         userId: req.session.userId,
         data: {
-            // email: req.body.email, // for dev purposes
             message: "Login Successful, have fun slimMom!"
         },
         
@@ -45,7 +44,7 @@ module.exports = userLogin;
      status: "Forbidden",
      code: "403",
      data: {
-     message: "Email not verified. Please check your email for a verification email, or resend it here ....",
+     message: "Email not verified. Please check your email for a verification email, or resend the verification email ....",
    }
 })
 */

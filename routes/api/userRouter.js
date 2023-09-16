@@ -25,6 +25,8 @@ userRouter
   .route("/users/login")
   .post(validation(loginValidationSchema), ctrlWrapper(ctrl.userLogin)); // route will be validated by joiSchema then the controller is wrapped in a a middleware which catches errors
 
+userRouter.route('/users/addFood').post(ctrlWrapper(ctrl.userAddFood)); 
+
 // @POST /api/users/logout
 userRouter.route("/users/logout").post(ctrlWrapper(ctrl.userLogout));
 
