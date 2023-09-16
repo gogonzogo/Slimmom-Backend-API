@@ -6,7 +6,6 @@ const userRegister = async (req, res) => {
     return res.status(201).json({ message: result });
   } catch (error) {
     console.error(error);
-
     if (error.message === 'Registration failed: User with this email already exists') {
       return res.status(400).json({ error: error.message });
     } else {
