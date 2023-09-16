@@ -12,7 +12,7 @@ app.use(cors());
 app.use(express.json());
 app.use("/api", caloriesRouter, userRouter, foodRouter);
 app.use((req, res) => {
-  res.status(404).json({ message: "Not found" });
+  res.status(404).json({ message: "Hey there! Server is running" });
 });
 app.use((err, req, res, next) => {
   const { status = 500, message = "Server error" } = err;
