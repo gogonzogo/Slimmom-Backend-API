@@ -8,7 +8,7 @@ const userRegister = async (req, res) => {
       status: "Conflict",
       code: 409,
       data: {
-        message: "Registration failed: A user with this email already exists.",
+        message: "Registration failed: A user with this name or email already exists.",
       },
     });
     return;
@@ -18,7 +18,7 @@ const userRegister = async (req, res) => {
       status: "Success",
       code: 200,
       token: req.session.userToken,
-      username: req.session.username,
+      name: req.session.name,
       data: {
         message: "Registration Success! See you soon slimMom!"
       }
@@ -29,11 +29,3 @@ const userRegister = async (req, res) => {
 };
 
 module.exports = userRegister;
-
-
-
-
-
-
-
-
