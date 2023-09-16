@@ -1,31 +1,32 @@
 const { users: service } = require('../../services');
 
 const userRegister = async (req, res) => {
-  try {
-    const result = await service.userRegister(req);
-    return res.status(201).json({ message: result });
-  } catch (error) {
-    console.error(error);
-    if (error.message === 'Registration failed: User with this email already exists') {
-      return res.status(400).json({ error: error.message });
-    } else {
-      return res.status(500).json({ error: 'Server error' });
-    }
+  const result = await service.userRegister(req);
+  console.log(result);
+  if(result === 409) {
+    res.status(409).json({
+      status: "Conflict",
+      code: 409,
+      data: {
+        message: "Registration failed: A user with this name or email already exists.",
+      },
+    });
+
+    return;
   }
+  if (result === 200) {
+    res.status(200).json({
+      status: "Success",
+      code: 200,
+      token: req.session.userToken,
+      name: req.session.name,
+      data: {
+        message: "Registration Success! See you soon slimMom!"
+      }
+    })
+}
+    
+  
 };
 
 module.exports = userRegister;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
