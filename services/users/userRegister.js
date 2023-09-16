@@ -3,7 +3,13 @@ const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
 require('dotenv').config();
 
+// const { nanoid } = require('nanoid');
 
+// no response, return a number of response
+// salt and hash
+// const generateUniqueToken = () => {
+//   return nanoid(32);
+// };
 const userRegister = async (req) => {
   try {
     // Validate
@@ -14,8 +20,10 @@ const userRegister = async (req) => {
       if (existingEmail || existingName) {
         return 409;
     }
-
     // Create Verification Token
+    // const verificationToken = generateUniqueToken();
+    // Hash the user's password
+    
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
     const token = jwt.sign({ email }, process.env.JWT_SECRET, {

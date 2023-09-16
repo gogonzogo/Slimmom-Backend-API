@@ -20,6 +20,8 @@ const userSchema = new Schema({
   { versionKey: false, timestamps: true }
 );
 
+// create a method for our userSchema
+// this method will hash the password and compare it to the hashed password in the database
 userSchema.methods.checkPassword = async function (loginPW) {
   return bcrypt.compare(loginPW, this.password);
 };
@@ -67,9 +69,25 @@ const registrationValidationSchema = Joi.object({// joi validations are objects
 
 });
 
+const loginValidationSchema = Joi.object({
+  email: Joi.string()
+    .email({
+      minDomainSegments: 2,
+      tlds: {
+        allow: ["com", "net", "io", "gov", "edu", "mil", "org"],
+      },
+    })
+    .required(),
+  password: Joi.string()
+    // eslint-disable-next-line prefer-regex-literals
+    .pattern(new RegExp("^[a-zA-Z0-9]{3,30}$"))
+    .required(),
+});
+
 const User = model('users', userSchema);
 
 module.exports = {
   User,
   registrationValidationSchema,
+  loginValidationSchema
 };

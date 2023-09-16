@@ -11,7 +11,6 @@ const userRegister = async (req, res) => {
         message: "Registration failed: A user with this name or email already exists.",
       },
     });
-
     return;
   }
   if (result === 200) {
