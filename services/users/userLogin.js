@@ -23,7 +23,7 @@ const userLogin = async (req, res) => {
         });
         req.session.userToken = token;
         req.session.userId = validUser._id;
-        req.session.username = validUser.username;
+        req.session.name = validUser.name;
         return 200
     } catch (err) {
         console.error('Error logging in user:', err);

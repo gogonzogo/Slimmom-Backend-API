@@ -48,7 +48,7 @@ const userRegister = async (req) => {
     // Update session
     req.session.userToken = token;
     req.session.userId = newUser._id;
-    req.session.username = name;
+    req.session.name = name;
     return 200
   } catch (error) {
     console.error(error);
