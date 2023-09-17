@@ -1,5 +1,5 @@
 const { Schema, model } = require('mongoose');
-const { User } = require ('user')
+const { User } = require ('./user')
 
 const productSchema = new Schema({
   productId: {
