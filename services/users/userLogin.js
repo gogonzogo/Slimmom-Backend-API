@@ -26,7 +26,9 @@ const userLogin = async (req, res) => {
         req.session.username = validUser.username;
         return 200
     } catch (err) {
-        console.error('Error logging in user:', err);
+    // Throw an error with a custom message
+    console.error(err)
+        throw new Error("Error logging in user: " + err.message);
     }
 };
     
