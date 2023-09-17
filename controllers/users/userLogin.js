@@ -18,7 +18,7 @@ const userLogin = async (req, res) => {
             status: "Unauthorized",
             code: 401,
             data: {
-                message: "Unauthorized user. Please check your email or password."
+                message: "Unauthorized user. Incorrect password."
             }
         });
         return

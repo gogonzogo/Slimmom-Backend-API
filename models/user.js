@@ -56,32 +56,45 @@ const registrationValidationSchema = Joi.object({// joi validations are objects
       const hasSpecialChar = /(?=.*[!@#$%^&*])/.test(value);
       const hasNoSpaces = !/\s/.test(value);
 
-      // Check how many password requirements are met
+ 
       const requirementsMet = [hasLowerCase, hasUpperCase, hasDigit, hasSpecialChar, hasNoSpaces].filter(Boolean).length;
       
-      if (requirementsMet !== 5) { // if they are not all met, send this message
+      if (requirementsMet !== 5) { 
         return helpers.message('Password must include at least 1 capital letter, 1 number, 1 special character, and no spaces');
       }
 
       return value;
     })
-    .required(), // if empty, will send a default error message 
+    .required(),
 
 });
 
 const loginValidationSchema = Joi.object({
   email: Joi.string()
-    .email({
-      minDomainSegments: 2,
-      tlds: {
-        allow: ["com", "net", "io", "gov", "edu", "mil", "org"],
-      },
+    .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net', 'org', 'edu', 'gov', 'us'] } })
+    .messages({
+    'string.email': 'Email must be a valid email address', 
     })
-    .required(),
-  password: Joi.string()
-    // eslint-disable-next-line prefer-regex-literals
-    .pattern(new RegExp("^[a-zA-Z0-9]{3,30}$"))
-    .required(),
+    .required(), 
+password: Joi.string()
+    .min(8)
+    .max(20)
+    .custom((value, helpers) => {
+      const hasLowerCase = /(?=.*[a-z])/.test(value);
+      const hasUpperCase = /(?=.*[A-Z])/.test(value);
+      const hasDigit = /(?=.*\d)/.test(value);
+      const hasSpecialChar = /(?=.*[!@#$%^&*])/.test(value);
+      const hasNoSpaces = !/\s/.test(value);
+
+      const requirementsMet = [hasLowerCase, hasUpperCase, hasDigit, hasSpecialChar, hasNoSpaces].filter(Boolean).length;
+      
+      if (requirementsMet !== 5) { 
+        return helpers.message('Password must include at least 1 capital letter, 1 number, 1 special character, and no spaces');
+      }
+
+      return value;
+    })
+    .required(), 
 });
 
 const User = model('users', userSchema);

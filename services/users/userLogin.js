@@ -5,9 +5,11 @@ const userLogin = async (req, res) => {
     try {
         const { email, password } = req.body;
         const validUser = await User.findOne({ email });
+
         if (!validUser) {
             return 404   
         };
+
         // if (!validUser.verify) {
         //     return res.status(403).json({ error: 'Email not verified' });
         // }
