@@ -4,8 +4,8 @@ const { Diary } = require('../../models');
 
 const userDeleteFood = async (req, res) => {
     try {
-        const { Id } = req.params;
-        const result = await Diary.findOneAndDelete(Id);
+        const { productId } = req.params;
+        const result = await Diary.findOneAndDelete(productId);
         console.log(result);
         return 201;
     } catch (err) {
