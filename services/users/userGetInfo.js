@@ -1,8 +1,8 @@
 const { calcCalories } = require("../../utils/calcCalories");
 const { getNotAllowedFood } = require("../../utils/getNotAllowedFood");
+const { Measurements } = require("../../models/measurements");
 
-
-const userGetInfo = async (req) => {
+const userGetInfo = async (req, body) => {
   const { currentWeight, height, age, desiredWeight, bloodType } = req.body;
 
   try {
@@ -13,17 +13,39 @@ const userGetInfo = async (req) => {
     }
     const totalCalories = calcCalories(req);
     const notAllowedFood = await getNotAllowedFood(bloodType);
+    const newUserInfo = await new Measurements({
+      height,
+    bloodType,
+    age,
+    currentWeight,
+    desiredWeight,
+    totalCalories,
+    notAllowedFood,
+    });
+
+    await  newUserInfo.save();
 
     if (!notAllowedFood) {
       return 404;
     }
     return {
-      totalCalories,
-      notAllowedFood,
-    };
+      newUserInfo
+    }
+    
   } catch (err) {
     console.log("Error getting food", err);
   }
+  
+  
+
+    
+     
+
+  
+  
+  
+
+
 };
 
 module.exports = userGetInfo;
