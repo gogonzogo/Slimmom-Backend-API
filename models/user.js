@@ -31,11 +31,16 @@ const registrationValidationSchema = Joi.object({// joi validations are objects
  name: Joi.string()// name validation starts here
     .min(3) // these are found in the joi documentation
     .max(20)
-    .alphanum()
+    .custom((value, helpers) => {
+      const hasNoSpaces = /^[a-zA-Z0-9]+(([a-zA-Z0-9 ])?[a-zA-Z0-9]*)*$/.test(value)
+      if (!hasNoSpaces) {
+        return helpers.message('Name can only contain alphanumeric characters')
+      }
+      return value
+    })
     .messages({// attaches a message when a validation error occurs
       'string.min': 'Name must be at least 3 characters long',
       'string.max': 'Name cannot be more than 20 characters long',
-      'string.alphanum': 'Name can only contain alphanumeric characters',
     })
     .required(), // // if empty, will send a default error message 
 
@@ -49,11 +54,11 @@ const registrationValidationSchema = Joi.object({// joi validations are objects
   password: Joi.string()
     .min(8)
     .max(20)
-    .custom((value, helpers) => {// password.requirements
+    .custom((value, helpers) => {// password.requirements 
       const hasLowerCase = /(?=.*[a-z])/.test(value);
       const hasUpperCase = /(?=.*[A-Z])/.test(value);
       const hasDigit = /(?=.*\d)/.test(value);
-      const hasSpecialChar = /(?=.*[!@#$%^&*])/.test(value);
+      const hasSpecialChar = /[!@#$%^&*()_+{}[\]:;<>,.?~\\-]/.test(value);
       const hasNoSpaces = !/\s/.test(value);
 
  
@@ -83,7 +88,7 @@ password: Joi.string()
       const hasLowerCase = /(?=.*[a-z])/.test(value);
       const hasUpperCase = /(?=.*[A-Z])/.test(value);
       const hasDigit = /(?=.*\d)/.test(value);
-      const hasSpecialChar = /(?=.*[!@#$%^&*])/.test(value);
+      const hasSpecialChar = /[!@#$%^&*()_+{}[\]:;<>,.?~\\-]/.test(value);
       const hasNoSpaces = !/\s/.test(value);
 
       const requirementsMet = [hasLowerCase, hasUpperCase, hasDigit, hasSpecialChar, hasNoSpaces].filter(Boolean).length;
