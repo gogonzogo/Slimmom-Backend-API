@@ -3,7 +3,7 @@ const { Diary } = require("../../models/");
 const userAddFood = async (req, res) => {
   try {
     // Extract necessary data from the request
-    const { date, eatenProduct } = req.body;
+    const { date, eatenProduct, grams, totalCalories } = req.body;
     // check if this is a new entry
     const userId = req.session.userId;
     let newEntry = await Diary.findOne({ userId });
@@ -11,7 +11,7 @@ const userAddFood = async (req, res) => {
       // If there is no existing entry for the user, create a new one
       newEntry = new Diary({
         userId,
-        entries: [{ date, eatenProduct }],
+        entries: [{ date: { eatenProduct: { grams, totalCalories } } }],
       });
       // Save the new entry to the database
       const data = await newEntry.save();
@@ -39,7 +39,7 @@ const userAddFood = async (req, res) => {
     return newEntry;
   } catch (err) {
     // Throw an error with a meaningful message
-    console.error(err)
+    console.error(err);
     throw new Error("Error adding food item: " + err.message);
   }
 };
