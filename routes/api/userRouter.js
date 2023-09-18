@@ -28,7 +28,10 @@ userRouter
 // @POST /api/users/addFood
 userRouter.route('/users/addFood').post(authorizeUser, ctrlWrapper(ctrl.userAddFood)); // can not access route without login
 
+
 // @POST /api/users/logout
 userRouter.route("/users/logout").post(ctrlWrapper(ctrl.userLogout));
+
+userRouter.route('/users/deleteFood').delete(authorizeUser, ctrlWrapper(ctrl.userDeleteFood));
 
 module.exports = userRouter;
