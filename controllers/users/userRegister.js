@@ -14,9 +14,9 @@ const userRegister = async (req, res) => {
     return;
   }
   if (result === 201) {
-    res.status(200).json({
+    res.status(201).json({
       status: "Created",
-      code: 200,
+      code: 201,
       token: req.session.userToken,
       name: req.session.name,
       data: {
