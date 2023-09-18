@@ -30,7 +30,9 @@ const diarySchema = new Schema({
         type: Date,
         required: [true, "date is required"],
       },
-      eatenProduct: productSchema,
+      eatenProduct: {
+        product: productSchema,
+      }
     },
   ],
 });
