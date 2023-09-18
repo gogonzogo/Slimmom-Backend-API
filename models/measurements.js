@@ -15,6 +15,9 @@ const measurementSchema = new Schema({
     type: Number,
     
   },
+  bloodType: {
+    type: Number,
+  },
   currentWeight: {
     type: Number,
     
