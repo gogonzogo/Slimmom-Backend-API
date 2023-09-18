@@ -1,34 +1,43 @@
 const { Schema, model } = require('mongoose');
 
+
+
 const measurementSchema = new Schema({
   height: {
     type: Number,
-    required: true,
+    
   },
   weight: {
     type: Number,
-    required: true,
+    
   },
   age: {
     type: Number,
-    required: true,
+    
+  },
+  bloodType: {
+    type: Number,
   },
   currentWeight: {
     type: Number,
-    required: true,
+    
   },
   desiredWeight: {
     type: Number,
-    required: true,
+    
   },
-  dailyCalorieIntake: {
+  totalCalories: {
     type: Number,
-    required: true,
+    
   },
-  averageCalorieIntake: {
-    type: Number,
-    required: true,
-  },
+  notAllowedFood: {
+    type: [],
+    
+  }
+  // averageCalorieIntake: {
+  //   type: Number,
+  //   required: true,
+  // },
 });
 
 const Measurements = model('measurements', measurementSchema);

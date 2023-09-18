@@ -1,7 +1,7 @@
 const { users: service } = require("../../services");
 
-const userGetInfo = async (req, res) => {
-  const result = await service.userGetInfo(req);
+const userGetInfo = async (req, res, body) => {
+  const result = await service.userGetInfo(req, body);
   console.log(result);
   if (result === 400) {
     res.status(400).json({
