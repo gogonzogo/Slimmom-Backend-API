@@ -49,7 +49,7 @@ const userRegister = async (req) => {
     req.session.userToken = token;
     req.session.userId = newUser._id;
     req.session.name = name;
-    return 200
+    return 201
   } catch (error) {
     console.error(error);
   }
