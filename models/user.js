@@ -26,34 +26,39 @@ userSchema.methods.checkPassword = async function (loginPW) {
   return bcrypt.compare(loginPW, this.password);
 };
 
-// Define the Joi validation schema for user registration
-const registrationValidationSchema = Joi.object({// joi validations are objects
- name: Joi.string()// name validation starts here
-    .min(3) // these are found in the joi documentation
+
+const registrationValidationSchema = Joi.object({
+ name: Joi.string()
+    .min(3) 
     .max(20)
-    .alphanum()
-    .messages({// attaches a message when a validation error occurs
+    .custom((value, helpers) => {
+      const hasNoSpaces = /^[a-zA-Z0-9]+(([a-zA-Z0-9- ])?[a-zA-Z0-9]*)*$/.test(value)
+      if (!hasNoSpaces) {
+        return helpers.message('Invalid name format, cannot start with a space, no special characters')
+      }
+      return value
+    })
+    .messages({
       'string.min': 'Name must be at least 3 characters long',
       'string.max': 'Name cannot be more than 20 characters long',
-      'string.alphanum': 'Name can only contain alphanumeric characters',
     })
-    .required(), // // if empty, will send a default error message 
+    .required(), 
 
-  email: Joi.string()// email validation 
+  email: Joi.string()
     .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net', 'org', 'edu', 'gov', 'us'] } })
     .messages({
-    'string.email': 'Email must be a valid email address', // Custom error message for invalid email
+    'string.email': 'Email must be a valid email address', 
     })
-    .required(), // if empty, will send a default error message 
+    .required(), 
   
   password: Joi.string()
     .min(8)
     .max(20)
-    .custom((value, helpers) => {// password.requirements
+    .custom((value, helpers) => {
       const hasLowerCase = /(?=.*[a-z])/.test(value);
       const hasUpperCase = /(?=.*[A-Z])/.test(value);
       const hasDigit = /(?=.*\d)/.test(value);
-      const hasSpecialChar = /(?=.*[!@#$%^&*])/.test(value);
+      const hasSpecialChar = /[!@#$%^&*()_+{}[\]:;<>,.?~\\-]/.test(value);
       const hasNoSpaces = !/\s/.test(value);
 
  
@@ -83,7 +88,7 @@ password: Joi.string()
       const hasLowerCase = /(?=.*[a-z])/.test(value);
       const hasUpperCase = /(?=.*[A-Z])/.test(value);
       const hasDigit = /(?=.*\d)/.test(value);
-      const hasSpecialChar = /(?=.*[!@#$%^&*])/.test(value);
+      const hasSpecialChar = /[!@#$%^&*()_+{}[\]:;<>,.?~\\-]/.test(value);
       const hasNoSpaces = !/\s/.test(value);
 
       const requirementsMet = [hasLowerCase, hasUpperCase, hasDigit, hasSpecialChar, hasNoSpaces].filter(Boolean).length;
