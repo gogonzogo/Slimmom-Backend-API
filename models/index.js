@@ -1,12 +1,12 @@
 const { Food } = require('./foods');
 const { Diary } = require('./diary');
-const { Measurements } = require('./measurements');
+const { Calculator } = require('./calculator');
 const { User, registrationValidationSchema, loginValidationSchema } = require('./user');
 
 module.exports = {
   Food,
   Diary,
-  Measurements,
+  Calculator,
   User,
   registrationValidationSchema,
   loginValidationSchema,

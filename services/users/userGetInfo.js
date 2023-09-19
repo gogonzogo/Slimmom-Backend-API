@@ -1,6 +1,6 @@
 const { calcCalories } = require("../../utils/calcCalories");
 const { getNotAllowedFood } = require("../../utils/getNotAllowedFood");
-const { Measurements } = require("../../models/measurements");
+const { Calculator } = require("../../models/calculator");
 
 const userGetInfo = async (req, body) => {
   const { currentWeight, height, age, desiredWeight, bloodType } = req.body;
@@ -13,23 +13,28 @@ const userGetInfo = async (req, body) => {
     }
     const totalCalories = calcCalories(req);
     const notAllowedFood = await getNotAllowedFood(bloodType);
-    const newUserInfo = await new Measurements({
-      height,
+    const userId = req.session.userId;
+    let newEntry = await Calculator.findOne({ userId });
+    if (!newEntry) {
+      newEntry = new Calculator({
+        userId,
+        height,
     bloodType,
     age,
     currentWeight,
     desiredWeight,
     totalCalories,
     notAllowedFood,
-    });
-
-    await  newUserInfo.save();
+      });
+      const data = await newEntry.save();
+      return data;
+    }
 
     if (!notAllowedFood) {
       return 404;
     }
     return {
-      newUserInfo
+      newEntry
     }
     
   } catch (err) {
