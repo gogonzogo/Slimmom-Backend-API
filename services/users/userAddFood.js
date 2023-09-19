@@ -1,7 +1,14 @@
 const { Diary } = require("../../models/");
 
 const userAddFood = async (req, res) => {
-  const { date, title, weight, calories } = req.body;
+  const { date, productId, title, weight, calories } = req.body;
+
+ console.log("Parsed req.body:", req.body);
+ console.log("Parsed productId:", productId);
+ console.log("Parsed date:", date);
+ console.log("Parsed title:", title);
+ console.log("Parsed weight:", weight);
+ console.log("Parsed calories:", calories);
 
   try {
     // Create a new entry
@@ -21,10 +28,11 @@ const userAddFood = async (req, res) => {
 
     if (existingEntry) {
     // If the entry exists for the specified date, add the new food item
-      existingEntry.foodItems.push({ title, weight, calories });
+      existingEntry.foodItems.push({ productId, title, weight, calories });
     } else {
     // If no entry exists for the date, create a new entry
       const newFoodItem = {
+        productId,
         title,
         weight,
         calories,
