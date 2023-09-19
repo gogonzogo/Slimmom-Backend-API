@@ -8,7 +8,7 @@ const userRegister = async (req, res) => {
       status: "Conflict",
       code: 409,
       data: {
-        message: "Registration failed: A user with this name or email already exists.",
+        message: "Registration failed: Email or name already exists.",
       },
     });
     return;
@@ -20,7 +20,7 @@ const userRegister = async (req, res) => {
       token: req.session.userToken,
       name: req.session.name,
       data: {
-        message: "Registration Success! See you soon slimMom!"
+        message: "Registration Success! Welcome SlimMom!"
       }
     })
 }
