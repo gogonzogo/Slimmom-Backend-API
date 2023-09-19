@@ -1,8 +1,15 @@
 const { Schema, model } = require('mongoose');
-
+const { User } = require('./user');
 
 
 const measurementSchema = new Schema({
+
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: User,
+    required: [true, "userId is required"],
+  }, 
+  
   height: {
     type: Number,
     
@@ -33,15 +40,11 @@ const measurementSchema = new Schema({
   notAllowedFood: {
     type: [],
     
-  }
-  // averageCalorieIntake: {
-  //   type: Number,
-  //   required: true,
-  // },
+  },
 });
 
-const Measurements = model('measurements', measurementSchema);
+const Calculator = model('calculator', measurementSchema);
 
 module.exports = {
-  Measurements,
+  Calculator,
 };
