@@ -32,6 +32,6 @@ userRouter.route('/users/addFood').post(authorizeUser, ctrlWrapper(ctrl.userAddF
 // @POST /api/users/logout
 userRouter.route("/users/logout").post(ctrlWrapper(ctrl.userLogout));
 
-userRouter.route('/users/deleteFood').delete(authorizeUser, ctrlWrapper(ctrl.userDeleteFood));
+userRouter.route("/users/deleteFood").delete(authorizeUser, ctrlWrapper(ctrl.userDeleteFood));
 
 module.exports = userRouter;
