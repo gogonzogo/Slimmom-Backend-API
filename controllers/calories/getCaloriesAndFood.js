@@ -2,7 +2,6 @@ const { calories: service } = require("../../services");
 
 const getCaloriesAndFood = async (req, res) => {
   const result = await service.getCaloriesAndFood(req);
-  console.log(result);
   if (result === 400) {
     res.status(400).json({
       status: "Bad request",

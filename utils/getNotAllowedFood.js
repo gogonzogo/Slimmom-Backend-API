@@ -20,7 +20,7 @@ const getNotAllowedFood = async (bloodType) => {
       break;
   }
   return await Food.find({
-    [`groupBloodNotAllowed.${newBloodType}`]: false,
+    [`groupBloodNotAllowed.${newBloodType}`]: true,
   }).limit(20);
 };
 

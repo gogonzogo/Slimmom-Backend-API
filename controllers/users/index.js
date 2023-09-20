@@ -1,9 +1,10 @@
 const userRegister = require("./userRegister");
-const userLogin = require('./userLogin');
-const userAddFood = require('./userAddFood');
-const userDeleteFood = require('./userDeleteFood');
-const userLogout = require('./userLogout');
-const userGetInfo = require('./userGetInfo');
+const userLogin = require("./userLogin");
+const userAddFood = require("./userAddFood");
+const userDeleteFood = require("./userDeleteFood");
+const userLogout = require("./userLogout");
+const userGetInfo = require("./userGetInfo");
+const userGetDayInfo = require("./userGetDayInfo");
 
 module.exports = {
   userRegister,
@@ -12,4 +13,5 @@ module.exports = {
   userDeleteFood,
   userLogout,
   userGetInfo,
+  userGetDayInfo,
 };
