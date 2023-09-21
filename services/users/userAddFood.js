@@ -1,18 +1,12 @@
 const { Diary } = require("../../models/");
 
 const userAddFood = async (req, res) => {
-  const { date, productId, title, weight, calories } = req.body;
-
- console.log("Parsed req.body:", req.body);
- console.log("Parsed productId:", productId);
- console.log("Parsed date:", date);
- console.log("Parsed title:", title);
- console.log("Parsed weight:", weight);
- console.log("Parsed calories:", calories);
+  const { date, title, weight, calories } = req.body;
 
   try {
-    // Create a new entry
+    // Grab id from session
     const userId = req.session.userId;
+    // Check for an existing diary add one if it doesn't exist yet
     let userDiary = await Diary.findOne({ userId });
     if (!userDiary) {
       userDiary = new Diary({
@@ -20,35 +14,35 @@ const userAddFood = async (req, res) => {
         entries: [], // Initialize the entries array
       });
     }
-
-    // Check if there's an existing entry for the specified date
-    const existingEntry = userDiary.entries.find(
-      (entry) => entry.date.toISOString() === new Date(date).toISOString()
-    );
-
-    if (existingEntry) {
+  
+    // Check if there's an existing entry in diary for the specified date
+  const existingEntry = userDiary.entries.find((entry) => entry.date === date);
+    
+  if (existingEntry) {
     // If the entry exists for the specified date, add the new food item
-      existingEntry.foodItems.push({ productId, title, weight, calories });
-    } else {
+    existingEntry.foodItems.push({
+      title,
+      weight,
+      calories,
+    });
+  } else {
     // If no entry exists for the date, create a new entry
-      const newFoodItem = {
-        productId,
-        title,
-        weight,
-        calories,
-      };
-
-      const newEntry = {
-        date,
-        foodItems: [newFoodItem],
-      };
-
-      userDiary.entries.push(newEntry);
+    const newEntry = {
+      date,
+      foodItems: [
+        {
+          title,
+          weight,
+          calories,
+        },
+      ],
     };
 
-    // Save the entry to the database
-    const data = await userDiary.save();
-    return data;
+    userDiary.entries.push(newEntry);
+  }
+  // Save the entry to the database
+  const data = await userDiary.save();
+  return data;
   } catch (err) {
     // Throw an error with a meaningful message
     console.error(err);
