@@ -16,7 +16,7 @@ const getNotAllowedFood = async (bloodType) => {
       newBloodType = 4;
       break;
     default:
-      newBloodType = 1;
+      newBloodType = bloodType;
       break;
   }
   return await Food.find({
