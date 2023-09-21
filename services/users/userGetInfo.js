@@ -3,42 +3,53 @@ const { getNotAllowedFood } = require("../../utils/getNotAllowedFood");
 const { Calculator } = require("../../models/calculator");
 
 const userGetInfo = async (req, body) => {
-  const { currentWeight, height, age, desiredWeight, bloodType } = req.body;
+  const {  currentWeight, height, age, desiredWeight, bloodType, measurementType } = req.body;
 
   try {
-    const stats = [currentWeight, height, age, desiredWeight, bloodType];
+    const stats = [currentWeight, height, age, desiredWeight, bloodType, measurementType];
 
     if (stats.some((variable) => variable === undefined)) {
       return 400;
     }
     const totalCalories = calcCalories(req);
     const notAllowedFood = await getNotAllowedFood(bloodType);
-    const userId = req.session.userId;
-    let newEntry = await Calculator.findOne({ userId });
-    if (!newEntry) {
-      newEntry = new Calculator({
-        userId,
-        height,
-    bloodType,
-    age,
-    currentWeight,
-    desiredWeight,
-    totalCalories,
-    notAllowedFood,
-      });
-      const data = await newEntry.save();
-      return data;
-    }
-
     if (!notAllowedFood) {
       return 404;
     }
-    return {
-      newEntry
-    }
+
+    const userId = req.session.userId;
+    let userInfo = await Calculator.findOne({ userId });
     
-  } catch (err) {
-    console.log("Error getting food", err);
+    
+    if (!userInfo) {
+      userInfo = new Calculator({
+        userId,
+        entries: [],
+      });
+    }
+        
+  
+    const newEntry = {
+          currentWeight,
+          height,
+          age,
+          desiredWeight,
+          bloodType,
+          totalCalories,
+          notAllowedFood,
+          measurementType
+    };
+
+    userInfo.entries.push(newEntry);
+    
+    const data = await userInfo.save();
+    return data;
+
+    
+    
+    
+  }catch (err) {
+    console.log("Error getting Info", err);
   }
   
   
