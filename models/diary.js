@@ -1,10 +1,11 @@
-const mongoose = require("mongoose");
+const { Schema, model}= require("mongoose");
 
-// Schema for the FoodItem ??? DO WE WANT THE PRODUCT ID TO BE A NUMBER FROM THE DB?
-const foodItemSchema = new mongoose.Schema({
-  productId: {
-    type: Number,
-    required: false
+// Schema for the FoodItem
+const foodItemSchema = new Schema(
+  {
+    productId: {
+      type: Number,
+      required: false,
     },
     title: {
       type: String,
@@ -18,28 +19,39 @@ const foodItemSchema = new mongoose.Schema({
       type: Number,
       required: true,
     },
-  
-});
+  },
+  { versionKey: false, timestamps: true },
+);
 
 // Schema for a single diary entry
-const diaryEntrySchema = new mongoose.Schema({
-  date: {
-    type: Date,
-    required: [true, "userId is required"],
+const diaryEntrySchema = new Schema(
+  {
+    date: {
+      type: Date,
+      required: [true, "userId is required"],
+    },
+    dailyRate: {
+      type: Number,
+      required: false,
+    },
+    foodItems: [foodItemSchema], // An array of food items for the day
   },
-  foodItems: [foodItemSchema], // An array of food items for the day
-});
+  { versionKey: false, timestamps: true },
+);
 
 // Schema for the entire diary (collection of diary entries)
-const diarySchema = new mongoose.Schema({
-  userId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User", // Reference to the User model
-    required: true,
+const diarySchema = new Schema(
+  {
+    userId: {
+      type: Schema.Types.ObjectId,
+      ref: "User", // Reference to the User model
+      required: true,
+    },
+    entries: [diaryEntrySchema], // An array of diary entries for the user
   },
-  entries: [diaryEntrySchema], // An array of diary entries for the user
-});
+  { versionKey: false, timestamps: true },
+);
 
-const Diary = mongoose.model("diary", diarySchema);
+const Diary = model("diary", diarySchema);
 
 module.exports = { Diary };
