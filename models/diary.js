@@ -1,12 +1,8 @@
-const { Schema, model}= require("mongoose");
+const { Schema, model } = require("mongoose");
 
 // Schema for the FoodItem
 const foodItemSchema = new Schema(
   {
-    productId: {
-      type: Number,
-      required: false,
-    },
     title: {
       type: String,
       required: true,
@@ -20,14 +16,14 @@ const foodItemSchema = new Schema(
       required: true,
     },
   },
-  { versionKey: false, timestamps: true },
+  { versionKey: false, timestamps: true }
 );
 
 // Schema for a single diary entry
 const diaryEntrySchema = new Schema(
   {
     date: {
-      type: Date,
+      type: String,
       required: [true, "userId is required"],
     },
     dailyRate: {
@@ -36,7 +32,7 @@ const diaryEntrySchema = new Schema(
     },
     foodItems: [foodItemSchema], // An array of food items for the day
   },
-  { versionKey: false, timestamps: true },
+  { versionKey: false, timestamps: true }
 );
 
 // Schema for the entire diary (collection of diary entries)
@@ -49,7 +45,7 @@ const diarySchema = new Schema(
     },
     entries: [diaryEntrySchema], // An array of diary entries for the user
   },
-  { versionKey: false, timestamps: true },
+  { versionKey: false, timestamps: true }
 );
 
 const Diary = model("diary", diarySchema);
