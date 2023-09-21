@@ -1,14 +1,28 @@
+const jwt = require("jsonwebtoken");
+
 const authorizeUser = (req, res, next) => {
-  if (!req.session.userToken) {
-    res.status(401).json({
-      status: "Unathorized",
+  const authHeader = req.get("Authorization");
+  if (!authHeader) {
+    return res.status(401).json({
+      status: "Unauthorized",
       code: 401,
       data: {
-        message: 'You are not authorized. Please login.',
+        message: "You are not authorized. Please provide a valid token.",
       },
     });
-  } else {
+  }
+  try {
+    const authToken = authHeader.replace("Bearer ", "");
+    jwt.verify(authToken, process.env.JWT_SECRET);
     next();
+  } catch (error) {
+    return res.status(401).json({
+      status: "Unauthorized",
+      code: 401,
+      data: {
+        message: "JWT verification failed. You are not authorized.",
+      },
+    });
   }
 };
 

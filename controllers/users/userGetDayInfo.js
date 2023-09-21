@@ -1,7 +1,8 @@
 const { users: service } = require("../../services");
 
 const userGetInfo = async (req, res) => {
-  const result = await service.userGetDayInfo(req);
+    const result = await service.userGetDayInfo(req);
+    console.log(result)
   if (result === 404) {
     res.status(404).json({
       status: "Not found",
