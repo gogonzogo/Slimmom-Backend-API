@@ -1,4 +1,4 @@
-const { Measurements, Diary } = require("../../models");
+const { Diary } = require("../../models");
 
 const userGetDayInfo = async (req) => {
   try {
@@ -12,14 +12,9 @@ const userGetDayInfo = async (req) => {
     if (!dayInfo) {
       return 404;
     }
-    // const totalConsumed = dayInfo.entries[0].foodItems.reduce(
-    //   (acc, entrie) => acc + entrie.calories,
-    //   0
-    // );        will be used in endpoint for user stats
-    console.log("dayInfo:", dayInfo);
     return {
-      totalCalories: 0,
       date,
+      // dailyRate: dayInfo.entries[0].dailyRate, uncomment when model will be updated
       foodItems: dayInfo.entries[0].foodItems,
     };
   } catch (err) {
