@@ -1,13 +1,13 @@
 const { users: service } = require("../../services");
 
-const userGetInfo = async (req, res) => {
-  const result = await service.userGetDayInfo(req);
+const userGetStats = async (req, res, body) => {
+  const result = await service.userGetStats(req, body);
   if (result === 404) {
     res.status(404).json({
       status: "Not found",
       code: 404,
       data: {
-        message: "No info for this day",
+        message: "No data yet",
       },
     });
     return;
@@ -31,4 +31,4 @@ const userGetInfo = async (req, res) => {
   }
 };
 
-module.exports = userGetInfo;
+module.exports = userGetStats;

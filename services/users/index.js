@@ -5,6 +5,7 @@ const userDeleteFood = require("./userDeleteFood");
 const userLogout = require("./userLogout");
 const userGetInfo = require("./userGetInfo");
 const userGetDayInfo = require("./userGetDayInfo");
+const userGetStats = require("./userGetStats");
 
 module.exports = {
   userRegister,
@@ -14,4 +15,5 @@ module.exports = {
   userLogout,
   userGetInfo,
   userGetDayInfo,
+  userGetStats,
 };
