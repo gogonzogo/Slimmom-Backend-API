@@ -15,5 +15,5 @@ userGetInfoRouter
   .get(authorizeUser, ctrlWrapper(ctrl.userGetStats));
 userGetInfoRouter
   .route("/day/info")
-  .post(authorizeUser, ctrlWrapper(ctrl.userGetDayInfo));
+  .get(authorizeUser, ctrlWrapper(ctrl.userGetDayInfo));
 module.exports = userGetInfoRouter;
