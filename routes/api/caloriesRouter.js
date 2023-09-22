@@ -7,5 +7,5 @@ const {
   upload,
 } = require("../../middlewares");
 
-caloriesRouter.route("/calories/").get(ctrlWrapper(ctrl.getCaloriesAndFood));
+caloriesRouter.route("/calories/").post(ctrlWrapper(ctrl.getCaloriesAndFood));
 module.exports = caloriesRouter;
