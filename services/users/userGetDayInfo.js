@@ -2,7 +2,10 @@ const { Diary } = require("../../models");
 
 const userGetDayInfo = async (req) => {
   try {
-    const { date, userId } = req.body;
+    const { date } = req.body;
+    const userId = req.session.userId
+    console.log(date)
+    console.log(userId)
 
     const dayInfo = await Diary.findOne({
       userId,
