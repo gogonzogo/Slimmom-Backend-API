@@ -9,15 +9,19 @@ const userGetDayInfo = async (req) => {
 
     const dayInfo = await Diary.findOne({
       userId,
-      [`entries.date`]: date,
+      entries: {
+        $elemMatch: { date },
+      },
     });
+
     if (!dayInfo) {
       return 404;
     }
+
+    const entry = dayInfo.entries.find((entry) => entry.date === date);
     return {
       date,
-      // dailyRate: dayInfo.entries[0].dailyRate, uncomment when model will be updated
-      foodItems: dayInfo.entries[0].foodItems,
+      foodItems: entry.foodItems,
     };
   } catch (err) {
     console.log("Error getting diary", err);

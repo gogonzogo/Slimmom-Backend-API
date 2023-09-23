@@ -3,6 +3,9 @@ const { Schema, model } = require('mongoose');
 
 
 const measurementSchema = new Schema({ 
+  date: {
+    type: String,
+  },
   height: {
     type: Number,
     
