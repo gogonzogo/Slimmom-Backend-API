@@ -26,12 +26,15 @@ userRouter
   .post(validation(loginValidationSchema), ctrlWrapper(ctrl.userLogin)); // route will be validated by joiSchema then the controller is wrapped in a a middleware which catches errors
 
 // @POST /api/users/addFood
-userRouter.route('/users/addFood').post(authorizeUser, ctrlWrapper(ctrl.userAddFood)); // can not access route without login
-
+userRouter
+  .route("/users/addFood")
+  .post(authorizeUser, ctrlWrapper(ctrl.userAddFood)); // can not access route without login
 
 // @POST /api/users/logout
 userRouter.route("/users/logout").post(ctrlWrapper(ctrl.userLogout));
 
-userRouter.route("/users/deleteFood").delete(authorizeUser, ctrlWrapper(ctrl.userDeleteFood));
+userRouter
+  .route("/users/deleteFood/:data")
+  .delete(authorizeUser, ctrlWrapper(ctrl.userDeleteFood));
 
 module.exports = userRouter;
