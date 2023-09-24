@@ -5,10 +5,19 @@ const cors = require('cors');
 const { caloriesRouter, userRouter, foodRouter, userGetInfoRouter,calculatorRouter } = require('./routes/api');
 const app = express();
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
+const allowedOrigins = [
+  'http://localhost:3000',
+  'https://gogonzogo.github.io',
+];
 app.use(express.static('public'))
 app.use(session(sess));
 app.use(logger(formatsLogger));
-app.use(cors());
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use("/api", caloriesRouter, userRouter, foodRouter, userGetInfoRouter, calculatorRouter);
 app.use((req, res) => {
