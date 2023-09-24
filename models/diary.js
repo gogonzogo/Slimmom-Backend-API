@@ -28,7 +28,7 @@ const diaryEntrySchema = new Schema(
     },
     dailyRate: {
       type: Number,
-      required: false,
+      default: 0,
     },
     foodItems: [foodItemSchema], // An array of food items for the day
   },
