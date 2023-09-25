@@ -3,9 +3,7 @@ const { Diary } = require("../../models");
 const userGetDayInfo = async (req) => {
   try {
     const { date } = req.body;
-    const userId = req.session.userId
-    console.log(date)
-    console.log(userId)
+    const userId = req.session.userId;
 
     const dayInfo = await Diary.findOne({
       userId,
@@ -21,6 +19,7 @@ const userGetDayInfo = async (req) => {
     const entry = dayInfo.entries.find((entry) => entry.date === date);
     return {
       date,
+      dailyRate: entry.dailyRate,
       foodItems: entry.foodItems,
     };
   } catch (err) {
