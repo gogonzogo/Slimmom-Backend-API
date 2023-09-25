@@ -1,19 +1,18 @@
 const { Schema, model } = require('mongoose');
 
 
+const calculatorSchema = new Schema({ 
+    userId: {
+      type: Schema.Types.ObjectId,
+      ref: "User", 
+      required: true,
+    },
 
-const measurementSchema = new Schema({ 
-  date: {
-    type: String,
-  },
   height: {
     type: Number,
     
   },
-  weight: {
-    type: Number,
-    
-  },
+  
   age: {
     type: Number,
     
@@ -33,26 +32,17 @@ const measurementSchema = new Schema({
     type: Number,
     
   },
-  notAllowedFood: {
-    type: [],
-    
-  },
   measurementType: {
       type: String,
-    },
+  },
+  originalWeight: {
+    type: Number,
+  },
+  enteredDate: {type: Date, default: Date.now}
 });
 
-const calculatorSchema = new Schema(
-  {
-    userId: {
-      type: Schema.Types.ObjectId,
-      ref: "User", 
-      required: true,
-    },
-    entries: [measurementSchema], 
-  },
-  { versionKey: false, timestamps: true },
-);
+
+
 
 const Calculator = model('calculator', calculatorSchema);
 

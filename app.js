@@ -2,7 +2,7 @@ const express = require('express');
 const { session, sess } = require('./middlewares');
 const logger = require('morgan');
 const cors = require('cors');
-const { caloriesRouter, userRouter, foodRouter, userGetInfoRouter } = require('./routes/api');
+const { caloriesRouter, userRouter, foodRouter, userGetInfoRouter,calculatorRouter } = require('./routes/api');
 const app = express();
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 const allowedOrigins = [
@@ -19,7 +19,7 @@ app.use(
   })
 );
 app.use(express.json());
-app.use("/api", caloriesRouter, userRouter, foodRouter, userGetInfoRouter);
+app.use("/api", caloriesRouter, userRouter, foodRouter, userGetInfoRouter, calculatorRouter);
 app.use((req, res) => {
   res.status(404).json({ message: "Hey there! Server is running" });
 });
