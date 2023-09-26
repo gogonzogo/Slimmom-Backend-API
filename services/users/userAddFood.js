@@ -46,8 +46,14 @@ const userAddFood = async (req, res) => {
       userDiary.entries.push(newEntry);
     }
     // Save the entry to the database
-    const data = await userDiary.save();
-    return data;
+    await userDiary.save();
+
+    const newEntry = userDiary.entries.find(
+      (entry) => entry.date === date
+    );
+    const newlyAddedFoodItem = newEntry.foodItems[newEntry.foodItems.length - 1];
+    return newlyAddedFoodItem;
+
   } catch (err) {
     // Throw an error with a meaningful message
     console.error(err);

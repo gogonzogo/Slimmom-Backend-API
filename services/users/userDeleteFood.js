@@ -14,7 +14,7 @@ const userDeleteFood = async (req) => {
     if (!deleteFoodItem) {
       return 404;
     }
-    return deleteFoodItem;
+    return entryId;
   } catch (err) {
     // Throw an error with a meaningful message
     console.error(err);
