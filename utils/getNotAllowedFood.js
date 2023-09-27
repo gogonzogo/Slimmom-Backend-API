@@ -27,7 +27,7 @@ const getNotAllowedFood = async (bloodType, title) => {
     ].filter(Boolean), // Filter out undefined conditions (in case title is not provided)
   };
 
-  const data = await Food.find(searchQuery).limit(20);
+  const data = await Food.find(searchQuery).select("title").limit(20);
   return data;
 };
 module.exports = {
