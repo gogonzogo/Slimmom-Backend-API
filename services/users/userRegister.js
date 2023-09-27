@@ -16,8 +16,8 @@ const userRegister = async (req) => {
   const { name, password, email } = req.body;
     // Check if the user already exists by email
     const existingEmail = await User.findOne({ email });
-     const existingName = await User.findOne({ name });
-      if (existingEmail || existingName) {
+    //  const existingName = await User.findOne({ name });
+      if (existingEmail ) {
         return 409;
     }
     // Create Verification Token
