@@ -1,14 +1,15 @@
 const { getNotAllowedFood } = require("../../utils/getNotAllowedFood");
 const getFoodByQuery = async (req) => {
   try {
-    const bloodType = req.body.bloodType;
-    const notAllowedFood = await getNotAllowedFood(bloodType);
+    const title = req.query.title;
+    const bloodType = req.query.bloodType;
+    const notAllowedFood = await getNotAllowedFood(bloodType, title);
     if (!notAllowedFood) {
       return 404;
     }
     return notAllowedFood;
   } catch (err) {
-    console.error("Who are you..?", err);
+    console.error("Nothing found", err);
   }
 };
 
