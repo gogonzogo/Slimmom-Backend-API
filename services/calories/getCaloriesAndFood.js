@@ -2,10 +2,8 @@ const { calcCalories } = require("../../utils/calcCalories");
 const { getNotAllowedFood } = require("../../utils/getNotAllowedFood");
 const getCaloriesAndFood = async (req) => {
   const { currentWeight, height, age, desiredWeight, bloodType } = req.body;
-
   try {
     const stats = [currentWeight, height, age, desiredWeight, bloodType];
-
     if (stats.some((variable) => variable === undefined)) {
       return 400;
     }

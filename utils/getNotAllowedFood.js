@@ -1,6 +1,7 @@
 const { Food } = require("../models/foods");
 
-const getNotAllowedFood = async (bloodType) => {
+const getNotAllowedFood = async (bloodType, title) => {
+  console.log(bloodType, title);
   let newBloodType;
   switch (bloodType) {
     case "A":
@@ -19,11 +20,16 @@ const getNotAllowedFood = async (bloodType) => {
       newBloodType = bloodType;
       break;
   }
-  return await Food.find({
-    [`groupBloodNotAllowed.${newBloodType}`]: true,
-  }).limit(20);
-};
+  const searchQuery = {
+    $and: [
+      title && { title: { $regex: title, $options: "i" } }, // Only include this condition if title is provided
+      { [`groupBloodNotAllowed.${newBloodType}`]: true },
+    ].filter(Boolean), // Filter out undefined conditions (in case title is not provided)
+  };
 
+  const data = await Food.find(searchQuery).select("title").limit(20);
+  return data;
+};
 module.exports = {
   getNotAllowedFood,
 };
