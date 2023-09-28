@@ -1,12 +1,10 @@
-const calories = require("./calories");
-const user = require("./users");
-const foods = require('./foods');
-const calculator = require('./calculator');
+const user = require("./user");
+const auth = require('./auth');
+const diary = require('./diary');
 
 
 module.exports = {
-  foods,
-  calories,
   user,
-  calculator,
+  auth,
+  diary,
 };
