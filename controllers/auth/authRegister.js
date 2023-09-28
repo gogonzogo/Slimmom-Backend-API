@@ -8,7 +8,7 @@ const authRegister = async (req, res) => {
       status: "Conflict",
       code: 409,
       data: {
-        message: "Registration failed: Email or name already exists.",
+        message: "Registration failed: Email already exists.",
       },
     });
     return;

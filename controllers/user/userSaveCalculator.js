@@ -1,4 +1,4 @@
-const { calculator: service } = require("../../services");
+const { user: service } = require("../../services");
 
 const userSaveCalulator = async (req, res) => {
   const result = await service.userSaveCalculator(req);
