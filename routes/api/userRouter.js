@@ -13,6 +13,6 @@ userRouter
   .route("/user/stats")
   .get(authorizeUser, ctrlWrapper(ctrl.userGetStats));
 
-userRouter.route("/user/calcuator/").post(ctrlWrapper(ctrl.userSaveCalulator));
+userRouter.route("/user/calcuator/").post(ctrlWrapper(ctrl.userSaveCalculator));
 
 module.exports = userRouter;
