@@ -5,15 +5,15 @@ const foodItemSchema = new Schema(
   {
     title: {
       type: String,
-      required: true,
+      
     },
     weight: {
       type: Number,
-      required: true,
+      
     },
     calories: {
       type: Number,
-      required: true,
+      
     },
   },
   { versionKey: false, timestamps: true }
@@ -24,7 +24,7 @@ const diaryEntrySchema = new Schema(
   {
     date: {
       type: String,
-      required: [true, "userId is required"],
+      
     },
     dailyRate: {
       type: Number,
