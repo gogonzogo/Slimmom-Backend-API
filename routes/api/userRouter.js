@@ -6,11 +6,9 @@ const {
 } = require("../../middlewares");
 
 userRouter.route("/user/calories/").post(ctrlWrapper(ctrl.userGetCaloriesAndFood));
+
 userRouter
-  .route("/user/calculator")
-  .post(authorizeUser, ctrlWrapper(ctrl.userGetInfo));
-userRouter
-  .route("/user/stats")
+  .route("/user/stats/")
   .get(authorizeUser, ctrlWrapper(ctrl.userGetStats));
 
 userRouter.route("/user/calcuator/").post(ctrlWrapper(ctrl.userSaveCalculator));

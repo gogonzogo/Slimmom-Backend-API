@@ -26,7 +26,6 @@ const authLogin = async (req, res) => {
     res.status(200).json({
         status: "Success",
         code: 200,
-        token: req.session.userToken,
         name: req.session.name,
         userId: req.session.userId,
         data: {

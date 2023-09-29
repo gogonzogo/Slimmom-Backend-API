@@ -2,7 +2,6 @@ const { diary: service } = require("../../services");
 
 const diaryGetDayEntries = async (req, res) => {
   const result = await service.diaryGetDayEntries(req);
-  // console.log(result)
   if (result === 404) {
     res.status(404).json({
       status: "Not found",
@@ -13,23 +12,11 @@ const diaryGetDayEntries = async (req, res) => {
     });
     return;
   }
-  if (result === 500) {
-    res.status(500).json({
-      status: "Server error",
-      code: 500,
-      data: {
-        message: "Unexpected server error",
-      },
-    });
-    return;
-  }
-  if (result) {
-    res.status(200).json({
-      status: "Success",
-      code: 200,
-      data: result,
-    });
-  }
+  res.status(200).json({
+    status: "Success",
+    code: 200,
+    data: result,
+  });
 };
 
 module.exports = diaryGetDayEntries;

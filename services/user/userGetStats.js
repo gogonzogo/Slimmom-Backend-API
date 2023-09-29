@@ -10,7 +10,6 @@ const userGetStats = async (req) => {
     return { stats };
   } catch (err) {
     console.log("Error getting stats", err);
-    return 500;
   }
 };
 module.exports = userGetStats;
