@@ -12,23 +12,11 @@ const userGetStats = async (req, res, body) => {
     });
     return;
   }
-  if (result === 500) {
-    res.status(500).json({
-      status: "Server error",
-      code: 500,
-      data: {
-        message: "Unexpected server error",
-      },
-    });
-    return;
-  }
-  if (result) {
-    res.status(200).json({
-      status: "Success",
-      code: 200,
-      data: result,
-    });
-  }
+  res.status(200).json({
+    status: "Success",
+    code: 200,
+    data: result,
+  });
 };
 
 module.exports = userGetStats;

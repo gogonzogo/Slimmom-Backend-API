@@ -24,7 +24,6 @@ const diaryGetDayEntries = async (req) => {
     };
   } catch (err) {
     console.log("Error getting diary", err);
-    return 500;
   }
 };
 

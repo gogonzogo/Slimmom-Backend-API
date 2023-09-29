@@ -1,9 +1,11 @@
 const { Diary, Calculator } = require("../../models");
 
 const diaryAddEntry = async (req, res) => {
-  const { date, title, weight, calories } = req.body;
-  console.log(date)
   try {
+    const { date, title, weight, calories } = req.body;
+    if (!date || !title || !weight || !calories) {
+      return 400;
+    }
     // Grab id from session
     const userId = req.session.userId;
     // Check for an existing diary add one if it doesn't exist yet
@@ -55,9 +57,7 @@ const diaryAddEntry = async (req, res) => {
     return newlyAddedFoodItem;
 
   } catch (err) {
-    // Throw an error with a meaningful message
     console.error(err);
-    throw new Error("Error adding food item: " + err.message);
   }
 };
 

@@ -18,6 +18,6 @@ diaryRouter
   .post(authorizeUser, ctrlWrapper(ctrl.diaryGetDayEntries));
 
 diaryRouter.route("/diary/allFoods/search/:title").get(ctrlWrapper(ctrl.diaryAllFoodsSearch));
-diaryRouter.route("/badFood").get(ctrlWrapper(ctrl.diaryNotAllowedFoodsSearch)); //add para
+diaryRouter.route("/badFood").get(ctrlWrapper(ctrl.diaryNotAllowedFoodsSearch)); 
 
 module.exports = diaryRouter;
