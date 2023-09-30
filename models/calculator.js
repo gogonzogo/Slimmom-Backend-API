@@ -38,7 +38,10 @@ const calculatorSchema = new Schema({
   originalWeight: {
     type: Number,
   },
-  enteredDate: { type: Date, default: Date.now }
+originalDate: {
+    type: Date,
+  },
+  enteredDate: { type: Date}
 });
 
 const Calculator = model('calculator', calculatorSchema);
