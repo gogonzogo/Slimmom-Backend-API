@@ -5,8 +5,8 @@ const sess = {
   cookie: {
     maxAge: 600000,
     httpOnly: true,
-    secure: true,
-    sameSite: 'none',
+    secure: false,
+    sameSite: 'strict',
   },
   resave: false,
   saveUninitialized: true,
