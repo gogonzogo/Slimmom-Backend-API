@@ -8,6 +8,8 @@ const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 const allowedOrigins = [
   'http://localhost:3000',
   'https://gogonzogo.github.io',
+  'https://splendorous-naiad-632a76.netlify.app',
+  'http://192.168.0.81:3000',
 ];
 app.use(express.static('public'))
 app.use(session(sess));
