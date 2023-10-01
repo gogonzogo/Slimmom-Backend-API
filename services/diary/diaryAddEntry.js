@@ -6,8 +6,8 @@ const diaryAddEntry = async (req) => {
     if (!date || !title || !weight || !calories) {
       return 400;
     }
-    const user = req.user
-    const userId = user._id;
+    const userId = req.user._id;
+    console.log(userId)
     let userDiary = await Diary.findOne({ userId });
     if (!userDiary) {
       userDiary = new Diary({
