@@ -1,9 +1,6 @@
 const diaryRouter = require("express").Router();
 const { diary: ctrl } = require("../../controllers");
-const {
-  ctrlWrapper,
-  authorizeUser,
-} = require("../../middlewares");
+const { ctrlWrapper, authorizeUser } = require("../../middlewares");
 
 diaryRouter
   .route("/diary/add")
@@ -17,7 +14,10 @@ diaryRouter
   .route("/diary/day")
   .post(authorizeUser, ctrlWrapper(ctrl.diaryGetDayEntries));
 
-diaryRouter.route("/diary/allFoods/search/:title").get(authorizeUser, ctrlWrapper(ctrl.diaryAllFoodsSearch));
-diaryRouter.route("/badFood").get(ctrlWrapper(authorizeUser, ctrl.diaryNotAllowedFoodsSearch)); 
-
+diaryRouter
+  .route("/diary/allFoods/search/:title")
+  .get(authorizeUser, ctrlWrapper(ctrl.diaryAllFoodsSearch));
+diaryRouter
+  .route("/badFood")
+  .get(authorizeUser, ctrlWrapper(ctrl.diaryNotAllowedFoodsSearch));
 module.exports = diaryRouter;
