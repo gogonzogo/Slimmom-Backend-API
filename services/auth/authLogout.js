@@ -1,16 +1,11 @@
-const { User } = require('../../models')
-
-const authLogout = async (req, res) => {
+const authLogout = async (req) => {
     try {
-        const userLoggedIn = req.session.userId
-        const userExists = await User.findById(`${userLoggedIn}`) !== null;
-        if (userExists) {
-            req.session.destroy()
-            return 200
-        }
-        return 404;
+        const user = req.user
+        console.log('user', user)
+        user.token = null;
+        await user.save();
+        return 200;
     } catch (err) {
-        res.json({ message: "There was an error with service." });
         console.log(err);
     }
 }

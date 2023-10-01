@@ -2,7 +2,6 @@ const { auth: service } = require('../../services');
 
 const authRegister = async (req, res) => {
   const result = await service.authRegister(req);
-  console.log(result);
   if (result === 409) {
     res.status(409).json({
       status: "Conflict",
@@ -13,16 +12,11 @@ const authRegister = async (req, res) => {
     });
     return;
   }
-  if (result === 201) {
-    res.status(201).json({
-      status: "Created",
-      code: 201,
-      name: req.session.name,
-      data: {
-        message: "Registration Success! Welcome SlimMom!"
-      }
-    })
-  }
+  res.status(201).json({
+    status: "Created",
+    code: 201,
+    data: req.userData,
+  })
 };
 
 module.exports = authRegister;

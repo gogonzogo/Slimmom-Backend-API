@@ -1,5 +1,4 @@
 const express = require('express');
-const { session, sess } = require('./middlewares');
 const logger = require('morgan');
 const cors = require('cors');
 const { routers } = require('./routes');
@@ -9,8 +8,7 @@ const allowedOrigins = [
   'http://localhost:3000',
   'https://gogonzogo.github.io',
 ];
-app.use(express.static('public'))
-app.use(session(sess));
+app.use(express.static('public'));
 app.use(logger(formatsLogger));
 app.use(
   cors({

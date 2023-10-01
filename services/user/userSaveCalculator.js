@@ -10,7 +10,7 @@ console.log(stats)
       return 400;
     }
 
-    const userId = req.session.userId;
+    const userId = req.user._Id;
     // Check for an existing diary add one if it doesn't exist yet
     const CalcFindRec = await Calculator.findOne({ userId });
     if (!CalcFindRec) {
