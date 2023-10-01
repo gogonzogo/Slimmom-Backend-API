@@ -27,6 +27,7 @@ const authLogin = async (req, res) => {
         status: "Success",
         code: 200,
         data: req.userData,
+        message: "Login Successful, have fun slimMom!"
     });
 };
 

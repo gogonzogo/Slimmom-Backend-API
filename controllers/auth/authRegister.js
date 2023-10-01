@@ -16,6 +16,7 @@ const authRegister = async (req, res) => {
     status: "Created",
     code: 201,
     data: req.userData,
+    message: "Registration Success! Welcome SlimMom!"
   })
 };
 
