@@ -26,26 +26,8 @@ const authLogin = async (req, res) => {
     res.status(200).json({
         status: "Success",
         code: 200,
-        name: req.session.name,
-        userId: req.session.userId,
-        data: {
-            message: "Login Successful, have fun slimMom!"
-        },
-        
+        data: req.userData,
     });
 };
 
 module.exports = authLogin;
-
-
-
-/* res.status(403).json({
-     status: "Forbidden",
-     code: "403",
-     data: {
-     message: "Email not verified. Please check your email for a verification email, or resend the verification email ....",
-   }
-})
-*/
-
-  

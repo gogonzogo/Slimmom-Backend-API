@@ -5,7 +5,7 @@ const diaryDeleteEntry = async (req) => {
   const data = JSON.parse(req.params.data);
   const { calDate, entryId } = data;
   try {
-    const userId = req.session.userId;
+    const userId = req.user._Id;
     const deleteFoodItem = await Diary.findOneAndUpdate(
       { userId, "entries.date": calDate, "entries.foodItems._id": entryId },
       { $pull: { "entries.$.foodItems": { _id: entryId } } },

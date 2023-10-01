@@ -3,7 +3,7 @@ const { Diary } = require("../../models");
 const diaryGetDayEntries = async (req) => {
   try {
     const { date } = req.body;
-    const userId = req.session.userId;
+    const userId = req.user._Id;
 
     const dayInfo = await Diary.findOne({
       userId,

@@ -3,6 +3,7 @@ const { auth: ctrl } = require("../../controllers");
 const {
   validation,
   ctrlWrapper,
+  authorizeUser,
 } = require("../../middlewares");
 const {
   registrationValidationSchema,
@@ -20,6 +21,6 @@ authRouter
   .route("/auth/login")
   .post(validation(loginValidationSchema), ctrlWrapper(ctrl.authLogin));
 
-authRouter.route("/auth/logout").post(ctrlWrapper(ctrl.authLogout));
+authRouter.route("/auth/logout").post(authorizeUser, ctrlWrapper(ctrl.authLogout));
 
 module.exports = authRouter;

@@ -2,7 +2,7 @@ const { Calculator } = require("../../models/calculator");
 
 const userGetStats = async (req) => {
   try {
-    const userId = req.session.userId;
+    const userId = req.user._Id;
     const stats = await Calculator.findOne({ userId });
     if (!stats) {
       return 404;

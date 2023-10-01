@@ -17,7 +17,7 @@ diaryRouter
   .route("/diary/day")
   .post(authorizeUser, ctrlWrapper(ctrl.diaryGetDayEntries));
 
-diaryRouter.route("/diary/allFoods/search/:title").get(ctrlWrapper(ctrl.diaryAllFoodsSearch));
-diaryRouter.route("/badFood").get(ctrlWrapper(ctrl.diaryNotAllowedFoodsSearch)); 
+diaryRouter.route("/diary/allFoods/search/:title").get(authorizeUser, ctrlWrapper(ctrl.diaryAllFoodsSearch));
+diaryRouter.route("/badFood").get(ctrlWrapper(authorizeUser, ctrl.diaryNotAllowedFoodsSearch)); 
 
 module.exports = diaryRouter;

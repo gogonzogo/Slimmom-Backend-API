@@ -1,5 +1,4 @@
 const express = require('express');
-const { session, sess } = require('./middlewares');
 const logger = require('morgan');
 const cors = require('cors');
 const { routers } = require('./routes');
@@ -11,8 +10,7 @@ const allowedOrigins = [
   'https://splendorous-naiad-632a76.netlify.app',
   'http://192.168.0.81:3000',
 ];
-app.use(express.static('public'))
-app.use(session(sess));
+app.use(express.static('public'));
 app.use(logger(formatsLogger));
 app.use(
   cors({
