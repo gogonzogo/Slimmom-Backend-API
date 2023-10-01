@@ -89,13 +89,13 @@ password: Joi.string()
     .min(8)
     .max(20)
     .custom((value, helpers) => {
-      const hasLowerCase = /(?=.*[a-z])/.test(value);
+      // const hasLowerCase = /(?=.*[a-z])/.test(value);
       const hasUpperCase = /(?=.*[A-Z])/.test(value);
       const hasDigit = /(?=.*\d)/.test(value);
       const hasSpecialChar = /[!@#$%^&*()_+{}[\]:;<>,.?~\\-]/.test(value);
       const hasNoSpaces = !/\s/.test(value);
 
-      const requirementsMet = [hasLowerCase, hasUpperCase, hasDigit, hasSpecialChar, hasNoSpaces].filter(Boolean).length;
+      const requirementsMet = [hasUpperCase, hasDigit, hasSpecialChar, hasNoSpaces].filter(Boolean).length;
       
       if (requirementsMet !== 5) { 
         return helpers.message('Password must include at least 1 capital letter, 1 number, 1 special character, and no spaces');
