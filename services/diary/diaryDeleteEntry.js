@@ -3,11 +3,11 @@ const { Diary } = require("../../models");
 const diaryDeleteEntry = async (req) => {
   console.log("params: ", req.params);
   const data = JSON.parse(req.params.data);
-  const { calDate, entryId } = data;
+  const { formatDate, entryId } = data;
   try {
     const userId = req.user._id;
     const deleteFoodItem = await Diary.findOneAndUpdate(
-      { userId, "entries.date": calDate, "entries.foodItems._id": entryId },
+      { userId, "entries.date": formatDate, "entries.foodItems._id": entryId },
       { $pull: { "entries.$.foodItems": { _id: entryId } } },
       { new: true }
     );
