@@ -28,7 +28,7 @@
     }
   ],
   "paths": {
-    "/auth/register": {
+    "/api/auth/register": {
       "post": {
         "tags": ["Auth"],
         "summary": "User registration",
@@ -66,7 +66,7 @@
         }
       }
     },
-    "/auth/login": {
+    "/api/auth/login": {
       "post": {
         "tags": ["Auth"],
         "summary": "User authentication",
@@ -109,7 +109,7 @@
         }
       }
     },
-    "/auth/logout": {
+    "/api/auth/logout": {
       "post": {
         "tags": ["Auth"],
         "summary": "Logout",
@@ -131,7 +131,7 @@
         }
       }
     },
-    "/diary/day": {
+    "/api/diary/day": {
       "post": {
         "tags": ["Diary"],
         "summary": "Get all diary entries for a given day",
@@ -174,7 +174,7 @@
         }
       }
     },
-    "/diary/add": {
+    "/api/diary/add": {
       "post": {
         "tags": ["Diary"],
         "summary": "Add a diary entry for a given day",
@@ -213,7 +213,7 @@
         }
       }
     },
-    "/diary/delete/{data}": {
+    "/api/diary/delete/{data}": {
       "delete": {
         "tags": ["Diary"],
         "summary": "Delete a diary entry for a given day",
@@ -257,7 +257,7 @@
         }
       }
     },
-    "/diary/allFoods/search/{title}": {
+    "/api/diary/allFoods/search/{title}": {
       "get": {
         "tags": ["Diary"],
         "summary": "Search the foods database",
@@ -301,7 +301,7 @@
         }
       }
     },
-    "/diary/notAllowedFoods/search/{title}": {
+    "/api/diary/notAllowedFoods/search/{title}": {
       "get": {
         "tags": ["Diary"],
         "summary": "Search the foods database for not allowed foods for a given blood type",
@@ -355,7 +355,7 @@
         }
       }
     },
-    "/user/calories/": {
+    "/api/user/calories/": {
       "post": {
         "tags": ["User"],
         "summary": "Get a user's daily caloric rate and list of not allowed foods",
@@ -394,7 +394,7 @@
         }
       }
     },
-    "/user/stats/": {
+    "/api/user/stats/": {
       "get": {
         "tags": ["User"],
         "summary": "Get user stats from their calculator submission to track their weight progress",
@@ -422,7 +422,7 @@
         }
       }
     },
-    "/user/calculator/": {
+    "/api/user/calculator/": {
       "post": {
         "tags": ["User"],
         "summary": "Get user info",
