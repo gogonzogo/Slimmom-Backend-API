@@ -7,6 +7,7 @@ const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 const allowedOrigins = [
   'http://localhost:3000',
   'https://gogonzogo.github.io',
+  'https://app.swaggerhub.com',
 ];
 app.use(express.static('public'));
 app.use(logger(formatsLogger));
