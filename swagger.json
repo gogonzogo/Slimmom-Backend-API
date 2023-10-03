@@ -1,0 +1,991 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "version": "2.0.0",
+    "title": "Slimmom API docs",
+    "description": "API documentation for team project 'Slimmom'. [Backend GitHub repository](https://github.com/gogonzogo/Final-Team-Project-Backend)"
+  },
+  "servers": [
+    {
+      "url": "https://slimmom-9d5b6b1b5aa9.herokuapp.com/",
+      "description": "Production server"
+    }
+  ],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Endpoints for authorization"
+    },
+    {
+      "name": "User",
+      "description": "Endpoints for user data"
+    },
+    {
+      "name": "Diary",
+      "description": "Endpoints for user diary actions"
+    }
+  ],
+  "paths": {
+    "/auth/register": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User registration",
+        "description": "Register a new user.",
+        "requestBody": {
+          "description": "Registration request object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegistrationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful registration",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegistrationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "description": "Conflict: Email already exists.",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User authentication",
+        "description": "Authenticate a user with email and password.",
+        "parameters": [],
+        "requestBody": {
+          "description": "Authentication request object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful authentication",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized: Password is incorrect",
+            "content": {}
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "404": {
+            "description": "Not Found: Email doesn't exist",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/auth/logout": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Logout",
+        "description": "Logout the authenticated user.",
+        "security": [{ "Bearer": [] }],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful logout"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {}
+          },
+          "404": {
+            "description": "Not Found: Invalid user / Invalid session",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/diary/day": {
+      "post": {
+        "tags": ["Diary"],
+        "summary": "Get all diary entries for a given day",
+        "security": [{ "Bearer": [] }],
+        "parameters": [],
+        "requestBody": {
+          "description": "Object with all diary entries for a given day",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DiaryDayRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DiaryDayResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized (login required)",
+            "content": {}
+          },
+          "404": {
+            "description": "No info for given day",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/diary/add": {
+      "post": {
+        "tags": ["Diary"],
+        "summary": "Add a diary entry for a given day",
+        "security": [{ "Bearer": [] }],
+        "parameters": [],
+        "requestBody": {
+          "description": "Object with user's diary entry for a given day",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DiaryAddEntryRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DiaryAddEntryResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized (login required)",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/diary/delete/{data}": {
+      "delete": {
+        "tags": ["Diary"],
+        "summary": "Delete a diary entry for a given day",
+        "security": [{ "Bearer": [] }],
+        "parameters": [
+          {
+            "name": "data",
+            "in": "path",
+            "description": "Product Id and date of entry concatenated and stringified",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "productId_dateString"
+            }
+          }
+        ],
+        "requestBody": {},
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DiaryDeleteEntryResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Data",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized (login required)",
+            "content": {}
+          },
+          "404": {
+            "description": "Invalid product id / Invalid date",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/diary/allFoods/search/{title}": {
+      "get": {
+        "tags": ["Diary"],
+        "summary": "Search the foods database",
+        "security": [{ "Bearer": [] }],
+        "parameters": [
+          {
+            "name": "title",
+            "in": "path",
+            "description": "String of characters that match a product title from the database",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Chicken"
+            }
+          }
+        ],
+        "requestBody": {},
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DiaryFoodSearchResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request param)",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized (login required)",
+            "content": {}
+          },
+          "404": {
+            "description": "Food not found",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/diary/notAllowedFoods/search/{title}": {
+      "get": {
+        "tags": ["Diary"],
+        "summary": "Search the foods database for not allowed foods for a given blood type",
+        "security": [{ "Bearer": [] }],
+        "parameters": [
+          {
+            "name": "title",
+            "in": "path",
+            "description": "String of characters that match a product title from the database with excluded blood type",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Chicken"
+            }
+          },
+          {
+            "name": "bloodType",
+            "in": "query",
+            "description": "Blood type for which to exclude foods",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "A"
+            }
+          }
+        ],
+        "requestBody": {},
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DiaryFoodSearchResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request param)",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized (login required)",
+            "content": {}
+          },
+          "404": {
+            "description": "Food not found",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/user/calories/": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Get a user's daily caloric rate and list of not allowed foods",
+        "security": [],
+        "parameters": [],
+        "requestBody": {
+          "description": "Object with all fields for daily intake calculation",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserCaloriesRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserCaloriesResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (Missing required fields)",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized (login required)",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/user/stats/": {
+      "get": {
+        "tags": ["User"],
+        "summary": "Get user stats from their calculator submission to track their weight progress",
+        "security": [{ "Bearer": [] }],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserStatsResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized (login required)",
+            "content": {}
+          },
+          "404": {
+            "description": "No stats found for the user",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/user/calculator/": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Get user info",
+        "security": [{ "Bearer": [] }],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserSaveCalculatorResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (Missing required fields)",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized (login required)",
+            "content": {}
+          },
+          "404": {
+            "description": "Invalid user / Invalid session",
+            "content": {}
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "RegistrationRequest": {
+        "type": "object",
+        "required": ["email", "password", "name"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email address",
+            "example": "barbara@mail.com",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "Abracadabr23!",
+            "minLength": 8,
+            "maxLength": 20
+          },
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "Barbara",
+            "minLength": 3,
+            "maxLength": 20
+          }
+        }
+      },
+      "RegistrationResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Status message for the request",
+            "example": "Success"
+          },
+          "code": {
+            "type": "number",
+            "description": "Status code number",
+            "example": 201
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "token": {
+                "type": "string",
+                "description": "Authorization token",
+                "example": "dt65m1gjk65sd58efg4"
+              },
+              "userId": {
+                "type": "string",
+                "description": "User ID of the registered user",
+                "example": "dt65m1gjk65sd58efg4"
+              },
+              "name": {
+                "type": "string",
+                "description": "Name of the registered user",
+                "example": "Barbara"
+              }
+            }
+          },
+          "message": {
+            "type": "string",
+            "description": "Message from the backend based on the status code",
+            "example": "Registration Success! Welcome SlimMom!"
+          }
+        }
+      },
+      "LoginRequest": {
+        "type": "object",
+        "required": ["email", "password"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email address",
+            "example": "barbara@mail.com",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "Abracadabr23!",
+            "minLength": 8,
+            "maxLength": 20
+          }
+        }
+      },
+      "LoginResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Status message for the request",
+            "example": "Success"
+          },
+          "code": {
+            "type": "number",
+            "description": "Status code number",
+            "example": 200
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "token": {
+                "type": "string",
+                "description": "Authorization token",
+                "example": "dt65m1gjk65sd58efg4"
+              },
+              "userId": {
+                "type": "string",
+                "description": "User ID of the authenticated user",
+                "example": "dt65m1gjk65sd58efg4"
+              }
+            }
+          },
+          "message": {
+            "type": "string",
+            "description": "Message from the backend based on the status code",
+            "example": "Authentication Success!"
+          }
+        }
+      },
+      "DiaryDayRequest": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date",
+            "description": "Date for which diary entries are requested (YYYY-MM-DD)",
+            "example": "2023-10-01"
+          }
+        },
+        "required": ["date"]
+      },
+      "DiaryDayResponse": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date",
+            "description": "Date for which diary entries are returned (YYYY-MM-DD)",
+            "example": "2023-10-01"
+          },
+          "DiaryDay": {
+            "type": "number",
+            "description": "Daily rate for the specified date",
+            "example": 1800
+          },
+          "foodItems": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "description": "Title of the food item",
+                  "example": "Chicken Breast"
+                },
+                "weight": {
+                  "type": "number",
+                  "description": "Weight of the food item (in grams)",
+                  "example": 150
+                },
+                "calories": {
+                  "type": "number",
+                  "description": "Calories in the food item",
+                  "example": 200
+                }
+              },
+              "required": ["title", "weight", "calories"]
+            },
+            "description": "Array of food items for the specified date"
+          }
+        },
+        "required": ["date", "DiaryDay", "foodItems"]
+      },
+      "DiaryAddEntryRequest": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date",
+            "description": "Date for the diary entry (YYYY-MM-DD)",
+            "example": "2023-10-01"
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the food item",
+            "example": "Chicken Breast"
+          },
+          "weight": {
+            "type": "number",
+            "description": "Weight of the food item (in grams)",
+            "example": 150
+          },
+          "calories": {
+            "type": "number",
+            "description": "Calories in the food item",
+            "example": 200
+          }
+        },
+        "required": ["date", "title", "weight", "calories"]
+      },
+      "DiaryAddEntryResponse": {
+        "type": "object",
+        "properties": {
+          "newEntry": {
+            "type": "object",
+            "properties": {
+              "date": {
+                "type": "string",
+                "format": "date",
+                "description": "Date for the diary entry (YYYY-MM-DD)",
+                "example": "2023-10-01"
+              },
+              "dailyRate": {
+                "type": "number",
+                "description": "Daily rate for the specified date",
+                "example": 1800
+              },
+              "foodItems": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string",
+                      "description": "Title of the food item",
+                      "example": "Chicken Breast"
+                    },
+                    "weight": {
+                      "type": "number",
+                      "description": "Weight of the food item (in grams)",
+                      "example": 150
+                    },
+                    "calories": {
+                      "type": "number",
+                      "description": "Calories in the food item",
+                      "example": 200
+                    }
+                  },
+                  "required": ["title", "weight", "calories"]
+                },
+                "description": "Array of food items for the specified date"
+              }
+            },
+            "required": ["date", "dailyRate", "foodItems"]
+          },
+          "message": {
+            "type": "string",
+            "description": "Response message",
+            "example": "Awesome, a new entry was added to your Diary."
+          }
+        }
+      },
+      "DiaryDeleteEntryResponse": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "string",
+            "description": "ID of the deleted food item",
+            "example": "productId"
+          }
+        },
+        "required": ["result"]
+      },
+      "DiaryFoodSearchResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Status message for the response",
+            "example": "Success"
+          },
+          "code": {
+            "type": "number",
+            "description": "Status code for the response",
+            "example": 200
+          },
+          "message": {
+            "type": "string",
+            "description": "Response message",
+            "example": "Food was found"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "categories": {
+                  "type": "string",
+                  "description": "Categories of the food item",
+                  "example": "Meat"
+                },
+                "weight": {
+                  "type": "string",
+                  "description": "Weight of the food item",
+                  "example": "100g"
+                },
+                "title": {
+                  "type": "string",
+                  "description": "Title of the food item",
+                  "example": "Chicken Breast"
+                },
+                "calories": {
+                  "type": "string",
+                  "description": "Calories in the food item",
+                  "example": "150"
+                }
+              },
+              "required": ["categories", "weight", "title", "calories"]
+            },
+            "description": "Array of found food items"
+          }
+        },
+        "required": ["status", "code", "message", "data"]
+      },
+      "UserCaloriesRequest": {
+        "type": "object",
+        "properties": {
+          "currentWeight": {
+            "type": "number",
+            "description": "User's current weight",
+            "example": 70.5
+          },
+          "height": {
+            "type": "number",
+            "description": "User's height",
+            "example": 175
+          },
+          "age": {
+            "type": "number",
+            "description": "User's age",
+            "example": 30
+          },
+          "desiredWeight": {
+            "type": "number",
+            "description": "User's desired weight",
+            "example": 65
+          },
+          "bloodType": {
+            "type": "string",
+            "description": "User's blood type",
+            "example": "A"
+          }
+        },
+        "required": [
+          "currentWeight",
+          "height",
+          "age",
+          "desiredWeight",
+          "bloodType"
+        ]
+      },
+      "UserCaloriesResponse": {
+        "type": "object",
+        "properties": {
+          "totalCalories": {
+            "type": "number",
+            "description": "User's total daily caloric rate",
+            "example": 2000
+          },
+          "notAllowedFood": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "List of not allowed foods for the user's blood type",
+              "example": "Dairy, Wheat"
+            },
+            "description": "Array of not allowed foods"
+          }
+        },
+        "required": ["totalCalories", "notAllowedFood"]
+      },
+      "UserStatsResponse": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "description": "User's ID",
+            "example": "12345"
+          },
+          "height": {
+            "type": "number",
+            "description": "User's height",
+            "example": 175
+          },
+          "age": {
+            "type": "number",
+            "description": "User's age",
+            "example": 30
+          },
+          "bloodType": {
+            "type": "string",
+            "description": "User's blood type",
+            "example": "A"
+          },
+          "currentWeight": {
+            "type": "number",
+            "description": "User's current weight",
+            "example": 70.5
+          },
+          "desiredWeight": {
+            "type": "number",
+            "description": "User's desired weight",
+            "example": 65
+          },
+          "totalCalories": {
+            "type": "number",
+            "description": "User's total daily caloric rate",
+            "example": 2000
+          },
+          "measurementType": {
+            "type": "string",
+            "description": "User's measurement type",
+            "example": "metric"
+          },
+          "originalWeight": {
+            "type": "number",
+            "description": "User's original weight",
+            "example": 75
+          },
+          "originalDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Date of the original weight submission",
+            "example": "2023-10-03"
+          },
+          "enteredDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Date when the data was entered",
+            "example": "2023-10-03"
+          }
+        },
+        "required": [
+          "userId",
+          "height",
+          "age",
+          "bloodType",
+          "currentWeight",
+          "desiredWeight",
+          "totalCalories",
+          "measurementType",
+          "originalWeight",
+          "originalDate",
+          "enteredDate"
+        ]
+      },
+      "UserSaveCalculatorResponse": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "description": "User's ID",
+            "example": "12345"
+          },
+          "height": {
+            "type": "number",
+            "description": "User's height",
+            "example": 175
+          },
+          "age": {
+            "type": "number",
+            "description": "User's age",
+            "example": 30
+          },
+          "bloodType": {
+            "type": "string",
+            "description": "User's blood type",
+            "example": "A"
+          },
+          "currentWeight": {
+            "type": "number",
+            "description": "User's current weight",
+            "example": 70.5
+          },
+          "desiredWeight": {
+            "type": "number",
+            "description": "User's desired weight",
+            "example": 65
+          },
+          "totalCalories": {
+            "type": "number",
+            "description": "User's total daily caloric rate",
+            "example": 2000
+          },
+          "measurementType": {
+            "type": "string",
+            "description": "User's measurement type",
+            "example": "metric"
+          },
+          "originalWeight": {
+            "type": "number",
+            "description": "User's original weight",
+            "example": 75
+          },
+          "originalDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Date of the original weight submission",
+            "example": "2023-10-03"
+          },
+          "enteredDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Date when the data was entered",
+            "example": "2023-10-03"
+          }
+        },
+        "required": [
+          "userId",
+          "height",
+          "age",
+          "bloodType",
+          "currentWeight",
+          "desiredWeight",
+          "totalCalories",
+          "measurementType",
+          "originalWeight",
+          "originalDate",
+          "enteredDate"
+        ]
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "https",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
