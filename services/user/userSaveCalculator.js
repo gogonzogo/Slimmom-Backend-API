@@ -11,7 +11,6 @@ console.log(stats)
     }
 
     const userId = req.user._id;
-    // Check for an existing diary add one if it doesn't exist yet
     const CalcFindRec = await Calculator.findOne({ userId });
     if (!CalcFindRec) {
      const newCal = new Calculator({
@@ -24,7 +23,7 @@ console.log(stats)
 await Calculator.findOneAndUpdate({ userId }, {height, age,bloodType, currentWeight, desiredWeight, totalCalories, enteredDate})
         return 201
   } catch (err) {
-    // Throw an error with a meaningful message
+
     console.error(err);
     throw new Error("Error Adding Calculator: " + err.message);
   }

@@ -1,4 +1,4 @@
-function calcCalories(req) {
+function dailyRate(req) {
   const { currentWeight, height, age, desiredWeight } = req.body;
 
   console.log({ currentWeight, height, age, desiredWeight });
@@ -10,4 +10,4 @@ function calcCalories(req) {
     10 * (currentWeight - desiredWeight);
   return totalCalories;
 }
-module.exports = { calcCalories };
+module.exports = dailyRate;

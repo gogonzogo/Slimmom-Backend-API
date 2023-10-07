@@ -1,5 +1,4 @@
-const { calcCalories } = require("../../utils/calcCalories");
-const { getNotAllowedFood } = require("../../utils/getNotAllowedFood");
+const { getNotAllowedFood, dailyRate } = require("../../utils");
 
 const userGetCaloriesAndFood = async (req) => {
   const { currentWeight, height, age, desiredWeight, bloodType } = req.body;
@@ -8,7 +7,7 @@ const userGetCaloriesAndFood = async (req) => {
     if (stats.some((variable) => variable === undefined)) {
       return 400;
     }
-    const totalCalories = calcCalories(req);
+    const totalCalories = dailyRate(req);
     const notAllowedFood = await getNotAllowedFood(bloodType);
 
     if (!notAllowedFood) {
@@ -19,7 +18,8 @@ const userGetCaloriesAndFood = async (req) => {
       notAllowedFood,
     };
   } catch (err) {
-    console.log("Error getting food", err);
+    console.log(err);
+    throw new Error("Error getting food" + err.message)
   }
 };
 

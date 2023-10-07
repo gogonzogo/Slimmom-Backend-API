@@ -25,6 +25,7 @@ const authLogin = async (req) => {
         return 200;
     } catch (err) {
         console.error(err)
+        throw new Error("Error logging in" + err.message)
     }
 };
 

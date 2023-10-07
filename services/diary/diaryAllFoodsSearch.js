@@ -11,7 +11,8 @@ const diaryAllFoodsSearch = async (req, res) => {
             .limit(limit);
         return data;
     } catch (err) {
-        console.error('No food was found with that name:', err);
+        console.error(err);
+        throw new Error("Error searching food" + err.message)
     }
 };
 

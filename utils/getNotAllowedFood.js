@@ -30,6 +30,4 @@ const getNotAllowedFood = async (bloodType, title) => {
   const data = await Food.find(searchQuery).select("title").limit(20);
   return data;
 };
-module.exports = {
-  getNotAllowedFood,
-};
+module.exports = getNotAllowedFood;

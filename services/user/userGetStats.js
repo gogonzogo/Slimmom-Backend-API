@@ -9,7 +9,8 @@ const userGetStats = async (req) => {
     }
     return { stats };
   } catch (err) {
-    console.log("Error getting stats", err);
+    console.log(err);
+    throw new Error("Error getting stats" + err.message)
   }
 };
 module.exports = userGetStats;
