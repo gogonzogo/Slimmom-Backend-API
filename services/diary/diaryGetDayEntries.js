@@ -23,7 +23,8 @@ const diaryGetDayEntries = async (req) => {
       foodItems: entry.foodItems,
     };
   } catch (err) {
-    console.log("Error getting diary", err);
+    console.log(err);
+    throw new Error("Error getting diary" + err.message)
   }
 };
 

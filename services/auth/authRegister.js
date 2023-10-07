@@ -28,8 +28,9 @@ const authRegister = async (req) => {
       name,
     }
     return 200
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    console.log(err);
+    throw new Error("Error registering" + err.message)
   }
 };
 

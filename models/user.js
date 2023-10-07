@@ -59,7 +59,6 @@ const registrationValidationSchema = Joi.object({
     .min(8)
     .max(20)
     .custom((value, helpers) => {
-      // const hasLowerCase = /(?=.*[a-z])/.test(value);
       const hasUpperCase = /(?=.*[A-Z])/.test(value);
       const hasDigit = /(?=.*\d)/.test(value);
       const hasSpecialChar = /[!@#$%^&*()_+{}[\]:;<>,.?~\\-]/.test(value);
@@ -89,7 +88,6 @@ password: Joi.string()
     .min(8)
     .max(20)
     .custom((value, helpers) => {
-      // const hasLowerCase = /(?=.*[a-z])/.test(value);
       const hasUpperCase = /(?=.*[A-Z])/.test(value);
       const hasDigit = /(?=.*\d)/.test(value);
       const hasSpecialChar = /[!@#$%^&*()_+{}[\]:;<>,.?~\\-]/.test(value);

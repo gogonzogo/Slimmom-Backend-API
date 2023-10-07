@@ -1,4 +1,4 @@
-const { getNotAllowedFood } = require("../../utils/getNotAllowedFood");
+const { getNotAllowedFood } = require("../../utils");
 
 const diaryNotAllowedFoodsSearch = async (req) => {
   try {
@@ -10,7 +10,8 @@ const diaryNotAllowedFoodsSearch = async (req) => {
     }
     return notAllowedFood;
   } catch (err) {
-    console.error("Nothing found", err);
+    console.log(err);
+    throw new Error("Error searching" + err.message);
   }
 };
 

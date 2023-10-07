@@ -7,6 +7,7 @@ const authLogout = async (req) => {
         return 200;
     } catch (err) {
         console.log(err);
+        throw new Error("Error logging out" + err.message)
     }
 }
 

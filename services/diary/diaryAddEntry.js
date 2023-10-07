@@ -49,6 +49,7 @@ const diaryAddEntry = async (req) => {
     return newlyAddedFoodItem;
   } catch (err) {
     console.error(err);
+    throw new Error("Error adding diary entry" + err.message)
   }
 };
 
