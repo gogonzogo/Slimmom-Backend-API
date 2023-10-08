@@ -4,7 +4,6 @@ const userSaveCalculator = async (req) => {
   const { height,  age,bloodType, currentWeight, desiredWeight, totalCalories, measurementType, originalDate, enteredDate, } = req.body;
   try {
  const stats = [height, age,bloodType, currentWeight, desiredWeight, totalCalories, measurementType,originalDate, enteredDate];
-console.log(stats)
     
     if (stats.some((variable) => variable === undefined)) {
       return 400;

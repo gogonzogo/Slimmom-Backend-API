@@ -7,7 +7,6 @@ const diaryAddEntry = async (req) => {
       return 400;
     }
     const userId = req.user._id;
-    console.log(userId)
     let userDiary = await Diary.findOne({ userId });
     if (!userDiary) {
       userDiary = new Diary({

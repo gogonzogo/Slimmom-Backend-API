@@ -1,7 +1,6 @@
 function dailyRate(req) {
   const { currentWeight, height, age, desiredWeight } = req.body;
 
-  console.log({ currentWeight, height, age, desiredWeight });
   const totalCalories =
     10 * currentWeight +
     6.25 * height -
