@@ -2,7 +2,6 @@ const { auth: service } = require('../../services');
 
 const authLogin = async (req, res) => {
     const result = await service.authLogin(req);
-    console.log(result)
     if (result === 404) {
         res.status(404).json({
             status: "Not Found",

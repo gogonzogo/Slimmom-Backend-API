@@ -15,4 +15,13 @@ userRouter.route("/user/calcuator/").post(authorizeUser, ctrlWrapper(ctrl.userSa
 
 userRouter.route("/user/info/day").get(authorizeUser, ctrlWrapper(ctrl.userGetInfo))
 
+userRouter.route("/user/archive/").post(authorizeUser, ctrlWrapper(ctrl.userArchive));
+
+userRouter.route("/user/deleteDiary/").post(authorizeUser, ctrlWrapper(ctrl.userDeleteDiary));
+
+userRouter.route("/user/downloadDiary/").post(authorizeUser, ctrlWrapper(ctrl.userDownloadDiary));
+
+userRouter.route("/user/deleteAccount/").post(authorizeUser, ctrlWrapper(ctrl.userDeleteAccount));
+
+
 module.exports = userRouter;

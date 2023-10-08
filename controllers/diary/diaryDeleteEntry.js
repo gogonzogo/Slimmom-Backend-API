@@ -2,7 +2,6 @@ const { diary: service } = require("../../services");
 
 const diaryDeleteEntry = async (req, res) => {
   const result = await service.diaryDeleteEntry(req);
-  console.log(result);
 
   if (result === 400) {
     res.status(400).json({

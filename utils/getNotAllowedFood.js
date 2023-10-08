@@ -1,7 +1,6 @@
 const { Food } = require("../models/foods");
 
 const getNotAllowedFood = async (bloodType, title) => {
-  console.log(bloodType, title);
   let newBloodType;
   switch (bloodType) {
     case "A":
