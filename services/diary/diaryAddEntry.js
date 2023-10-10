@@ -11,10 +11,10 @@ const diaryAddEntry = async (req) => {
     if (!userDiary) {
       userDiary = new Diary({
         userId,
-        diaryEntries: [],
+        entries: [],
       });
     }
-    const existingEntry = userDiary.diaryEntries.find(
+    const existingEntry = userDiary.entries.find(
       (entry) => entry.date === date
     );
     if (existingEntry) {
@@ -38,10 +38,10 @@ const diaryAddEntry = async (req) => {
         ],
       };
 
-      userDiary.diaryEntries.push(newEntry);
+      userDiary.entries.push(newEntry);
     }
     await userDiary.save();
-    const newEntry = userDiary.diaryEntries.find(
+    const newEntry = userDiary.entries.find(
       (entry) => entry.date === date
     );
     const newlyAddedFoodItem = newEntry.foodItems[newEntry.foodItems.length - 1];
