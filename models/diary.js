@@ -43,7 +43,7 @@ const diarySchema = new Schema(
       ref: "User", // Reference to the User model
       required: true,
     },
-    diaryEntries: [diaryEntrySchema], // An array of diary entries for the user
+    entries: [diaryEntrySchema], // An array of diary entries for the user
   },
   { versionKey: false, timestamps: true }
 );
