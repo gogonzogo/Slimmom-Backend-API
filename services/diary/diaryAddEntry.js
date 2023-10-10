@@ -11,10 +11,10 @@ const diaryAddEntry = async (req) => {
     if (!userDiary) {
       userDiary = new Diary({
         userId,
-        entries: [],
+        diaryEntries: [],
       });
     }
-    const existingEntry = userDiary.entries.find(
+    const existingEntry = userDiary.diaryEntries.find(
       (entry) => entry.date === date
     );
     if (existingEntry) {
@@ -25,7 +25,7 @@ const diaryAddEntry = async (req) => {
       });
     } else {
       const data = await Calculator.findOne({ userId });
-      const dailyRate = data ? data._doc.totalCalories : 0;
+      const dailyRate = data ? data._doc.dailyRate : 0;
       const newEntry = {
         date,
         dailyRate,
@@ -38,10 +38,10 @@ const diaryAddEntry = async (req) => {
         ],
       };
 
-      userDiary.entries.push(newEntry);
+      userDiary.diaryEntries.push(newEntry);
     }
     await userDiary.save();
-    const newEntry = userDiary.entries.find(
+    const newEntry = userDiary.diaryEntries.find(
       (entry) => entry.date === date
     );
     const newlyAddedFoodItem = newEntry.foodItems[newEntry.foodItems.length - 1];

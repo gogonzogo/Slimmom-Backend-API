@@ -24,7 +24,7 @@ const diaryEntrySchema = new Schema(
   {
     date: {
       type: String,
-      required: [true, "userId is required"],
+      required: true,
     },
     dailyRate: {
       type: Number,
@@ -43,7 +43,7 @@ const diarySchema = new Schema(
       ref: "User", // Reference to the User model
       required: true,
     },
-    entries: [diaryEntrySchema], // An array of diary entries for the user
+    diaryEntries: [diaryEntrySchema], // An array of diary entries for the user
   },
   { versionKey: false, timestamps: true }
 );

@@ -28,20 +28,20 @@ const calculatorArchiveSchema = new Schema({
     type: Number,
 
   },
-  totalCalories: {
+  dailyRate: {
     type: Number,
 
   },
-  measurementType: {
+  unitOfMeasure: {
     type: String,
   },
   originalWeight: {
     type: Number,
   },
-originalDate: {
+  originalDate: {
     type: Date,
   },
-  enteredDate: { type: Date}
+  enteredDate: { type: Date }
 });
 
 const CalculatorArchive = model('calculatorArchive', calculatorArchiveSchema);

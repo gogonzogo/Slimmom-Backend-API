@@ -812,7 +812,7 @@
       "UserCaloriesResponse": {
         "type": "object",
         "properties": {
-          "totalCalories": {
+          "dailyRate": {
             "type": "number",
             "description": "User's total daily caloric rate",
             "example": 2000
@@ -827,7 +827,7 @@
             "description": "Array of not allowed foods"
           }
         },
-        "required": ["totalCalories", "notAllowedFood"]
+        "required": ["dailyRate", "notAllowedFood"]
       },
       "UserStatsResponse": {
         "type": "object",
@@ -862,12 +862,12 @@
             "description": "User's desired weight",
             "example": 65
           },
-          "totalCalories": {
+          "dailyRate": {
             "type": "number",
             "description": "User's total daily caloric rate",
             "example": 2000
           },
-          "measurementType": {
+          "unitOfMeasure": {
             "type": "string",
             "description": "User's measurement type",
             "example": "metric"
@@ -897,8 +897,8 @@
           "bloodType",
           "currentWeight",
           "desiredWeight",
-          "totalCalories",
-          "measurementType",
+          "dailyRate",
+          "unitOfMeasure",
           "originalWeight",
           "originalDate",
           "enteredDate"
@@ -937,12 +937,12 @@
             "description": "User's desired weight",
             "example": 65
           },
-          "totalCalories": {
+          "dailyRate": {
             "type": "number",
             "description": "User's total daily caloric rate",
             "example": 2000
           },
-          "measurementType": {
+          "unitOfMeasure": {
             "type": "string",
             "description": "User's measurement type",
             "example": "metric"
@@ -972,8 +972,8 @@
           "bloodType",
           "currentWeight",
           "desiredWeight",
-          "totalCalories",
-          "measurementType",
+          "dailyRate",
+          "unitOfMeasure",
           "originalWeight",
           "originalDate",
           "enteredDate"
