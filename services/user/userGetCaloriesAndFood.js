@@ -1,4 +1,4 @@
-const { getNotAllowedFood, dailyRate } = require("../../utils");
+const { getNotAllowedFood, getDailyRate } = require("../../utils");
 
 const userGetCaloriesAndFood = async (req) => {
   const { currentWeight, height, age, desiredWeight, bloodType } = req.body;
@@ -7,14 +7,14 @@ const userGetCaloriesAndFood = async (req) => {
     if (stats.some((variable) => variable === undefined)) {
       return 400;
     }
-    const totalCalories = dailyRate(req);
+    const dailyRate = getDailyRate(req);
     const notAllowedFood = await getNotAllowedFood(bloodType);
 
     if (!notAllowedFood) {
       return 404;
     }
     return {
-      totalCalories,
+      dailyRate,
       notAllowedFood,
     };
   } catch (err) {

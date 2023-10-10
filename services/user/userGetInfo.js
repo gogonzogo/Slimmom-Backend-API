@@ -17,7 +17,7 @@ const userGetInfo = async (req) => {
     return 200;
   } catch (err) {
     console.log(err)
-    throw new Error("Error getting info" + err.message) 
+    throw new Error("Error getting info" + err.message)
   }
 }
 

@@ -12,13 +12,12 @@ const userGetCaloriesAndFood = async (req, res) => {
     });
     return;
   }
-  if (result) {
-    res.status(200).json({
-      status: "Success",
-      code: 200,
-      data: result,
-    });
-  }
+  res.status(200).json({
+    status: "Success",
+    code: 200,
+    data: result,
+  });
+
 };
 
 module.exports = userGetCaloriesAndFood;

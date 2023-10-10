@@ -1,12 +1,11 @@
-function dailyRate(req) {
+function getDailyRate(req) {
   const { currentWeight, height, age, desiredWeight } = req.body;
-
-  const totalCalories =
+  const dailyRate =
     10 * currentWeight +
     6.25 * height -
     5 * age -
     161 -
     10 * (currentWeight - desiredWeight);
-  return totalCalories;
+  return dailyRate;
 }
-module.exports = dailyRate;
+module.exports = getDailyRate;
