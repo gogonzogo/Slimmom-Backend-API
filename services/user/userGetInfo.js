@@ -1,15 +1,15 @@
-const { findDiaryEntry } = require('../../utils');
-const { Calculator } = require('../../models');
+const { diaryGetDayEntries } = require("../diary");
+const userGetCalculator = require("./userGetCalculator");
+
 
 const userGetInfo = async (req) => {
   try {
+    const name = req.user.name;
     const date = req.query.date;
-    const user = req.user;
-    const userId = user._id;
-    const diary = await findDiaryEntry(date, user);
-    const calculator = await Calculator.findOne({ userId });
+    const diary = await diaryGetDayEntries(req);
+    const calculator = await userGetCalculator(req);
     req.userInfo = {
-      name: user.name,
+      name,
       date,
       calculator,
       diary,

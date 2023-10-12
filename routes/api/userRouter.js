@@ -9,7 +9,7 @@ userRouter.route("/user/calories/").post(ctrlWrapper(ctrl.userGetCaloriesAndFood
 
 userRouter
   .route("/user/stats/")
-  .get(authorizeUser, ctrlWrapper(ctrl.userGetStats));
+  .get(authorizeUser, ctrlWrapper(ctrl.userGetCalculator));
 
 userRouter.route("/user/calcuator/").post(authorizeUser, ctrlWrapper(ctrl.userSaveCalculator));
 

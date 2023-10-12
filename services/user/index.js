@@ -1,4 +1,4 @@
-const userGetStats = require("./userGetStats");
+const userGetCalculator = require("./userGetCalculator");
 const userGetCaloriesAndFood = require("./userGetCaloriesAndFood");
 const userSaveCalculator = require('./userSaveCalculator')
 const userGetInfo = require('./userGetInfo')
@@ -11,7 +11,7 @@ const userDownloadDiary = require('./userDownloadDiary');
 
 
 module.exports = {
-  userGetStats,
+  userGetCalculator,
   userGetCaloriesAndFood,
   userSaveCalculator,
   userGetInfo,

@@ -1,7 +1,7 @@
 const { user: service } = require("../../services");
 
-const userGetStats = async (req, res, body) => {
-  const result = await service.userGetStats(req, body);
+const userGetCalculator = async (req, res, body) => {
+  const result = await service.userGetCalculator(req, body);
   if (result === 404) {
     res.status(404).json({
       status: "Not found",
@@ -19,4 +19,4 @@ const userGetStats = async (req, res, body) => {
   });
 };
 
-module.exports = userGetStats;
+module.exports = userGetCalculator;
