@@ -44,6 +44,9 @@ const diaryArchiveSchema = new Schema(
       required: true,
     },
     entries: [diaryEntrySchema], // An array of diary entries for the user
+    archiveDate: {
+      type: Date
+    }
   },
   { versionKey: false, timestamps: true }
 );

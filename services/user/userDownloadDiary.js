@@ -1,32 +1,87 @@
 const { Diary, Calculator, } = require("../../models");
-// const downloadsFolder = require('downloads-folder');
-const xlsx = require("xlsx");
-// const fs = require('node:fs/promises');
-// const downloadFolder = downloadsFolder()
+const { jsPDF } = require("jspdf");
 
 const userDownloadDiary = async (req) => {
-    try {
-        const userId = req.user._id;
-      const diaryData = await Diary.find({ userId }, { _id: 0 });
-      const calculatorData = await Calculator.find({ userId }, { _id: 0 });
-       console.log('json diaryData', JSON.stringify(diaryData))
-      console.log('json calculatorData', JSON.stringify(calculatorData))
-     let diaryDataJson = JSON.stringify(diaryData)
-      let calculatorDataJson = JSON.stringify(calculatorData)
-      diaryDataJson = JSON.parse(diaryDataJson)
-      calculatorDataJson = JSON.parse(calculatorDataJson)
-      const workbook = xlsx.utils.book_new();
-      const workbook2 = xlsx.utils.book_new();
-        const worksheet = xlsx.utils.json_to_sheet(calculatorDataJson)
-        const worksheet2 = xlsx.utils.json_to_sheet(diaryDataJson)
-        xlsx.utils.book_append_sheet(workbook, worksheet, "calculator")
-        xlsx.utils.book_append_sheet(workbook2, worksheet2, "diary")
-      xlsx.writeFile(workbook, "c:/temp/slimmom.xlsx")
-            xlsx.writeFile(workbook2, "c:/temp/slimmom2.xlsx")
+  try {
+    const userId = req.user._id;
+    const diaryData = await Diary.find({ userId }, { _id: 0 });
+    const calculatorData = await Calculator.find({ userId }, { _id: 0 });
+    console.log('calculatorData', calculatorData)
 
-return 20
-    } catch (err) {
-        console.log("Error Archiving data");
-      }
+
+    if (diaryData) {
+      // eslint-disable-next-line new-cap
+      const doc = new jsPDF();
+      let lineNum = 30;
+      let dairyRate = 0
+      let dayCalories = 0
+      diaryData[0].entries.map((item) => {
+
+        dayCalories = 0
+        dairyRate = item.dailyRate
+        doc.setFontSize(20);
+        doc.text(item.date, 105, lineNum, null, null, "center");
+        lineNum = lineNum + 20
+        if (lineNum >= 280) {
+          lineNum = 30
+          doc.addPage("letter", "l");
+        }
+        doc.setFontSize(10);
+        doc.text('Food Name', 40, lineNum);
+        doc.text('Grams', 120, lineNum);
+        doc.text('Calories', 150, lineNum);
+        lineNum = lineNum + 5
+        if (lineNum >= 280) {
+          lineNum = 30
+          doc.addPage("letter", "l");
+        }
+
+        item.foodItems.map((fooditem) => {
+          doc.setFontSize(10);
+
+          const item = fooditem.title
+          const weight = fooditem.weight
+          const cals = fooditem.calories
+          doc.text(item, 40, lineNum);
+          doc.text(weight.toString(), 120, lineNum);
+          doc.text(cals.toString(), 150, lineNum);
+
+          lineNum = lineNum + 5
+          if (lineNum >= 280) {
+            lineNum = 30
+            doc.addPage("letter", "l");
+          }
+          dayCalories = dayCalories + fooditem.calories;
+
+          return diaryData
+        })
+        lineNum = lineNum + 5
+
+
+        doc.text(`Daily Rate:  ${dairyRate.toString()}`, 40, lineNum);
+        doc.text(`Calories consumed ${dayCalories.toString()}`, 80, lineNum);
+        if (dairyRate * 1 - dayCalories * 1 < 0) {
+          doc.setTextColor("red");
+        } else {
+          doc.setTextColor("black");
+
+        }
+        doc.text(`Remaining calories ${(dairyRate * 1 - dayCalories * 1).toString()}`, 125, lineNum)
+        doc.setTextColor("black");
+        lineNum = lineNum + 20
+        if (lineNum >= 280) {
+          lineNum = 30
+          doc.addPage("letter", "l");
+        }
+
+        return diaryData
+      })
+      doc.save("newFile.pdf");
     };
-    module.exports = userDownloadDiary;
+    return { diaryData, calculatorData }
+
+  } catch (err) {
+    console.log("Error Archiving data");
+  }
+};
+module.exports = userDownloadDiary;
