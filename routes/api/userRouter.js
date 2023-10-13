@@ -5,7 +5,7 @@ const {
   authorizeUser,
 } = require("../../middlewares");
 
-userRouter.route("/user/calories/").post(ctrlWrapper(ctrl.userGetCaloriesAndFood));
+userRouter.route("/user/dailyRate/").post(ctrlWrapper(ctrl.userGetDailyRateAndFood));
 
 userRouter
   .route("/user/stats/")
@@ -22,6 +22,5 @@ userRouter.route("/user/deleteDiary/").post(authorizeUser, ctrlWrapper(ctrl.user
 userRouter.route("/user/downloadDiary/").post(authorizeUser, ctrlWrapper(ctrl.userDownloadDiary));
 
 userRouter.route("/user/deleteAccount/").post(authorizeUser, ctrlWrapper(ctrl.userDeleteAccount));
-
 
 module.exports = userRouter;
