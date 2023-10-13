@@ -2,6 +2,10 @@ const { Schema, model } = require('mongoose');
 
 const calculatorInputsSchema = new Schema(
   {
+    startDate: {
+      type: String,
+      required: true,
+    },
     height: {
       type: Number,
     },
@@ -12,6 +16,9 @@ const calculatorInputsSchema = new Schema(
     bloodType: {
       type: Number,
       required: true,
+    },
+    originalWeight: {
+      type: Number,
     },
     currentWeight: {
       type: Number,

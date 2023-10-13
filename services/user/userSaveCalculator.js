@@ -3,13 +3,13 @@ const { Calculator } = require("../../models");
 const userSaveCalculator = async (req) => {
   try {
     const userId = req.user._id;
-    const { date, height, age, bloodType, currentWeight, desiredWeight, dailyRate, unitOfMeasure, heightFeet, heightInch, currentWeightLbs, desiredWeightLbs } = req.body
+    const { date, height, age, bloodType, currentWeight, desiredWeight, dailyRate, unitOfMeasure, heightFeet, heightInch, currentWeightLbs, desiredWeightLbs, startDate, originalWeight } = req.body
     const measurementUnit = unitOfMeasure === "M" ? "M" : "S";
     let userInputs;
     if (measurementUnit === 'M') {
-      userInputs = { height, age, bloodType, currentWeight, desiredWeight, dailyRate, unitOfMeasure };
+      userInputs = { height, age, bloodType, currentWeight, desiredWeight, dailyRate, unitOfMeasure, startDate, originalWeight };
     } else {
-      userInputs = { heightFeet, heightInch, age, bloodType, currentWeightLbs, desiredWeightLbs, dailyRate, unitOfMeasure: "S", };
+      userInputs = { heightFeet, heightInch, age, bloodType, currentWeightLbs, desiredWeightLbs, dailyRate, unitOfMeasure: "S", startDate, originalWeight };
     };
     if (Object.values(userInputs).some(input => !input)) return 400;
     let userCalculator = await Calculator.findOne({ userId });
@@ -22,8 +22,12 @@ const userSaveCalculator = async (req) => {
     const existingEntryIndex = userCalculator.calculatorEntries.findIndex(
       (entry) => entry.date === date
     );
+    console.log('userInputs', userInputs)
     if (existingEntryIndex !== -1) {
-      userCalculator.calculatorEntries[existingEntryIndex].calculatorEntries = [userInputs];
+      userCalculator.calculatorEntries[existingEntryIndex] = {
+        date,
+        calculatorEntry: [userInputs],
+      };
     } else {
       const newEntry = {
         date,
@@ -38,7 +42,6 @@ const userSaveCalculator = async (req) => {
     const newlyAddedCalculatorEntry = newEntry.calculatorEntry[newEntry.calculatorEntry.length - 1];
     return newlyAddedCalculatorEntry;
   } catch (err) {
-    console.log(err);
     throw new Error("Error Adding Calculator: " + err.message);
   }
 };
