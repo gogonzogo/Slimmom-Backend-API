@@ -1,7 +1,7 @@
 const { user: service } = require("../../services");
 
-const userGetCaloriesAndFood = async (req, res) => {
-  const result = await service.userGetCaloriesAndFood(req);
+const userGetDailyRateAndFood = async (req, res) => {
+  const result = await service.userGetDailyRateAndFood(req);
   if (result === 400) {
     res.status(400).json({
       status: "Bad request",
@@ -20,4 +20,4 @@ const userGetCaloriesAndFood = async (req, res) => {
 
 };
 
-module.exports = userGetCaloriesAndFood;
+module.exports = userGetDailyRateAndFood;

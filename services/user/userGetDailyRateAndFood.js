@@ -1,6 +1,6 @@
 const { getNotAllowedFood, getDailyRate } = require("../../utils");
 
-const userGetCaloriesAndFood = async (req) => {
+const userGetDailyRateAndFood = async (req) => {
   const { currentWeight, height, age, desiredWeight, bloodType } = req.body;
   try {
     const stats = [currentWeight, height, age, desiredWeight, bloodType];
@@ -23,4 +23,4 @@ const userGetCaloriesAndFood = async (req) => {
   }
 };
 
-module.exports = userGetCaloriesAndFood;
+module.exports = userGetDailyRateAndFood;
