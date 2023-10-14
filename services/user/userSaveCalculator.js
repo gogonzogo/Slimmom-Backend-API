@@ -36,10 +36,19 @@ const userSaveCalculator = async (req) => {
         userId,
         calculatorEntries: [],
       });
+    } else {
+      const originalEntry = userCalculator.calculatorEntries
+      if (originalEntry.unitOfMeasure !== unitOfMeasure) {
+        const kgToLbsMultiplier = 2.20462;
+        const lbsToKgMultiplier = 0.45359237;
+        const convertedDesiredWeight = unitOfMeasure === "M" ? Math.ceil(originalWeight * lbsToKgMultiplier) : Math.ceil(originalWeight * kgToLbsMultiplier);
+        userInputs.originalWeight = convertedDesiredWeight;
+      };
     };
     const existingEntryIndex = userCalculator.calculatorEntries.findIndex(
       (entry) => entry.date === date
     );
+
     if (existingEntryIndex !== -1) {
       userCalculator.calculatorEntries[existingEntryIndex] = {
         date,
