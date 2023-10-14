@@ -7,7 +7,25 @@ const userSaveCalculator = async (req) => {
     const measurementUnit = unitOfMeasure === "M" ? "M" : "S";
     let userInputs;
     if (measurementUnit === 'M') {
-      userInputs = { height, age, bloodType, currentWeight, desiredWeight, dailyRate, unitOfMeasure, startDate, originalWeight };
+      let newBloodType;
+      switch (bloodType) {
+        case "A":
+          newBloodType = 1;
+          break;
+        case "B":
+          newBloodType = 2;
+          break;
+        case "AB":
+          newBloodType = 3;
+          break;
+        case "O":
+          newBloodType = 4;
+          break;
+        default:
+          newBloodType = bloodType;
+          break;
+      }
+      userInputs = { height, age, bloodType: newBloodType, currentWeight, desiredWeight, dailyRate, unitOfMeasure, startDate, originalWeight };
     } else {
       userInputs = { heightFeet, heightInch, age, bloodType, currentWeightLbs, desiredWeightLbs, dailyRate, unitOfMeasure: "S", startDate, originalWeight };
     };
@@ -22,7 +40,6 @@ const userSaveCalculator = async (req) => {
     const existingEntryIndex = userCalculator.calculatorEntries.findIndex(
       (entry) => entry.date === date
     );
-    console.log('userInputs', userInputs)
     if (existingEntryIndex !== -1) {
       userCalculator.calculatorEntries[existingEntryIndex] = {
         date,

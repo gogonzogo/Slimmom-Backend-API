@@ -14,7 +14,7 @@ const calculatorInputsSchema = new Schema(
       required: true,
     },
     bloodType: {
-      type: Number,
+      type: Schema.Types.Mixed,
       required: true,
     },
     originalWeight: {
