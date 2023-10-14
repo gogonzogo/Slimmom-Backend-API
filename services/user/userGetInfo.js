@@ -14,6 +14,7 @@ const userGetInfo = async (req) => {
       calculator,
       diary,
     }
+    if(diary === 404 && calculator.closest === 404) return 404
     return 200;
   } catch (err) {
     console.log(err)
