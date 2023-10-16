@@ -41,8 +41,8 @@ const userSaveCalculator = async (req) => {
       if (originalEntry.unitOfMeasure !== unitOfMeasure) {
         const kgToLbsMultiplier = 2.20462;
         const lbsToKgMultiplier = 0.45359237;
-        const convertedDesiredWeight = unitOfMeasure === "M" ? Math.ceil(originalWeight * lbsToKgMultiplier) : Math.ceil(originalWeight * kgToLbsMultiplier);
-        userInputs.originalWeight = convertedDesiredWeight;
+        const convertedDesiredWeight = unitOfMeasure === "M" ? originalWeight * lbsToKgMultiplier : originalWeight * kgToLbsMultiplier;
+        userInputs.originalWeight = convertedDesiredWeight.toFixed(2);
       };
     };
     const existingEntryIndex = userCalculator.calculatorEntries.findIndex(
