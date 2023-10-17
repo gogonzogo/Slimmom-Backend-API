@@ -6,13 +6,14 @@ const diaryAllFoodsSearch = async (req, res) => {
         const page = 1;
         const limit = 10;
         const offset = (page - 1) * limit;
-        const data = await Food.find({ title: { $regex: title, $options: 'i' } })
+        const foods = await Food.find(
+            { title: { $regex: title, $options: 'i' } }
+        )
             .skip(offset)
             .limit(limit);
-        return data;
+        return foods;
     } catch (err) {
-        console.error(err);
-        throw new Error("Error searching food" + err.message)
+        throw new Error("Error searching food: " + err.message);
     }
 };
 
