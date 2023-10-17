@@ -179,7 +179,8 @@ const userDownloadDiary = async (req) => {
 
       })
       doc.end();
-      downloadFile(url)
+      const targetFile = 'diary,pdf'
+      downloadFile(url, targetFile)
       fs.unlink(url, (err => {
         if (err) console.log(err);
         else {
