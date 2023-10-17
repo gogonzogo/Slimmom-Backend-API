@@ -1,9 +1,5 @@
 const { Schema, model } = require('mongoose');
 
-const notAllowedByBlood = new Schema({
-  groupBloodNotAllowed: []
-});
-
 const foodSchema = new Schema({
   categories: {
     type: String,
@@ -19,7 +15,7 @@ const foodSchema = new Schema({
     type: String,
   },
   groupBloodNotAllowed: {
-    type: notAllowedByBlood,
+    type: [Boolean],
     default: [],
   },
 },
