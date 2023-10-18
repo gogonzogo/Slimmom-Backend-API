@@ -1,4 +1,5 @@
-const { Diary, Calculator } = require("../../models");
+const { Diary } = require("../../models");
+const { findClosestCalculator } = require("../../utils");
 
 const diaryAddEntry = async (req) => {
   try {
@@ -24,8 +25,8 @@ const diaryAddEntry = async (req) => {
         calories,
       });
     } else {
-      const data = await Calculator.findOne({ userId });
-      const dailyRate = data ? data._doc.dailyRate : 0;
+      const closest = await findClosestCalculator(userId, date);
+      const dailyRate = closest.calculatorEntries.calculatorEntry.dailyRate
       const newEntry = {
         date,
         dailyRate,
@@ -39,15 +40,19 @@ const diaryAddEntry = async (req) => {
       };
 
       userDiary.entries.push(newEntry);
+      req.userData = {
+        newEntry,
+      }
     }
     await userDiary.save();
     const newEntry = userDiary.entries.find(
       (entry) => entry.date === date
     );
+    const newDailyRate = newEntry.dailyRate
     const newlyAddedFoodItem = newEntry.foodItems[newEntry.foodItems.length - 1];
-    return newlyAddedFoodItem;
+    return { newlyAddedFoodItem, newDailyRate };
   } catch (err) {
-    console.error(err);
+    console.log(err);
     throw new Error("Error adding diary entry" + err.message)
   }
 };

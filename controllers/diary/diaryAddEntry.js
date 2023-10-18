@@ -17,7 +17,8 @@ const diaryAddEntry = async (req, res) => {
     status: "Success",
     code: 200,
     data: {
-      newEntry: result,
+      newEntry: result.newlyAddedFoodItem,
+      dailyRate: result.newDailyRate,
       message: `Awesome, a new entry was added to your Diary.`,
     },
   });
