@@ -14,7 +14,7 @@ const calculatorInputsSchema = new Schema(
       required: true,
     },
     bloodType: {
-      type: Schema.Types.Mixed,
+      type: String,
       required: true,
     },
     originalWeight: {
@@ -27,16 +27,16 @@ const calculatorInputsSchema = new Schema(
       type: Number,
     },
     heightFeet: {
-      type: String,
+      type: Number,
     },
     heightInch: {
-      type: String,
+      type: Number,
     },
     currentWeightLbs: {
-      type: String,
+      type: Number,
     },
     desiredWeightLbs: {
-      type: String,
+      type: Number,
     },
     dailyRate: {
       type: Number,
