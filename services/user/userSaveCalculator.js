@@ -10,16 +10,16 @@ const userSaveCalculator = async (req) => {
       let newBloodType;
       switch (bloodType) {
         case "A":
-          newBloodType = 1;
+          newBloodType = '1';
           break;
         case "B":
-          newBloodType = 2;
+          newBloodType = '2';
           break;
         case "AB":
-          newBloodType = 3;
+          newBloodType = '3';
           break;
         case "O":
-          newBloodType = 4;
+          newBloodType = '4';
           break;
         default:
           newBloodType = bloodType;
