@@ -179,9 +179,12 @@ let url = ""
 
       })
       doc.end();
-      // downloadFile(url)
+
       console.log('url', url)
       fsExtra.remove(url, (err => {
+      const targetFile = 'diary,pdf'
+      //downloadFile(url, targetFile)
+     
         if (err) console.log(err);
         else {
           console.log("\nDeleted file: example_file.txt");
