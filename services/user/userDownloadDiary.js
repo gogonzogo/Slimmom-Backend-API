@@ -2,9 +2,9 @@ const { Diary, Calculator, User } = require("../../models");
 const PDFDocument = require('pdfkit');
 // const path = require('node:path');
 const fs = require('fs');
-const https = require('https');
+// const https = require('https');
 const path = require('path');
-
+const fsExtra = require('fs-extra')
 const userDownloadDiary = async (req) => {
 
 
@@ -60,35 +60,35 @@ const userDownloadDiary = async (req) => {
   }
 
 
-  async function downloadFile(url, targetFile) {
-    return await new Promise((resolve, reject) => {
-      https.get(url, response => {
-        const code = response.statusCode ?? 0
+  // async function downloadFile(url, targetFile) {
+  //   return await new Promise((resolve, reject) => {
+  //     https.get(url, response => {
+  //       const code = response.statusCode ?? 0
 
-        if (code >= 400) {
-          return reject(new Error(response.statusMessage))
-        }
+  //       if (code >= 400) {
+  //         return reject(new Error(response.statusMessage))
+  //       }
 
-        // save the file to disk
-        const fileWriter = fs
-          .createWriteStream(targetFile)
-          .on('finish', () => {
-            resolve({})
-          })
+  //       // save the file to disk
+  //       const fileWriter = fs
+  //         .createWriteStream(targetFile)
+  //         .on('finish', () => {
+  //           resolve({})
+  //         })
 
-        response.pipe(fileWriter)
-      }).on('error', error => {
-        reject(error)
-      })
-    })
-  }
+  //       response.pipe(fileWriter)
+  //     }).on('error', error => {
+  //       reject(error)
+  //     })
+  //   })
+  // }
 
 
 
   const { startDate, endDate } = req.body
   const startDateParse = Date.parse(startDate)
   const endDateParse = Date.parse(endDate)
-
+let url = ""
 
 
   try {
@@ -101,7 +101,7 @@ const userDownloadDiary = async (req) => {
 
     if (diaryData) {
       const output = `dairy${userId}.pdf`
-      const url = path.join(__dirname, '../../', "pdf", output)
+       url = path.join(__dirname, '../../', "pdf", output)
       doc.pipe(fs.createWriteStream(url));
       header(calculatorData, userinfo)
       diaryData[0].entries.map((item) => {
@@ -179,9 +179,12 @@ const userDownloadDiary = async (req) => {
 
       })
       doc.end();
+
+      console.log('url', url)
+      fsExtra.remove(url, (err => {
       const targetFile = 'diary,pdf'
-      downloadFile(url, targetFile)
-      fs.unlink(url, (err => {
+      //downloadFile(url, targetFile)
+     
         if (err) console.log(err);
         else {
           console.log("\nDeleted file: example_file.txt");
@@ -189,7 +192,7 @@ const userDownloadDiary = async (req) => {
       }));
 
     };
-    return { diaryData, calculatorData, userinfo }
+    return { diaryData, calculatorData, userinfo, url }
 
   } catch (err) {
     console.log("Error Archiving data");
