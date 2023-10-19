@@ -1,7 +1,7 @@
 const { user: service } = require("../../services");
 
 const userDownloadDiary = async (req, res) => {
-  const result = await service.userDownloadDiary(req);
+  const result = await service.userDownloadDiary(req, res);
   if (result === 400) {
     res.status(400).json({
       status: "Bad request",
@@ -13,11 +13,9 @@ const userDownloadDiary = async (req, res) => {
     return;
   }
   if (result) {
-    res.status(200).json({
-      status: "Success",
-      code: 200,
-      data: result,
-    });
+    const { url } = result
+    res.download(url)
+
   }
 };
 

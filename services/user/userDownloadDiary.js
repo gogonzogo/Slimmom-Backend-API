@@ -4,7 +4,9 @@ const PDFDocument = require('pdfkit');
 const fs = require('fs');
 // const https = require('https');
 const path = require('path');
-const fsExtra = require('fs-extra')
+// const fsExtra = require('fs-extra')
+
+
 const userDownloadDiary = async (req) => {
 
 
@@ -49,8 +51,16 @@ const userDownloadDiary = async (req) => {
 
     doc.fontSize(20);
     const calculatorInfo = calculatorData[0].calculatorEntries[0].calculatorEntry[0]
-    const calcInfo = `Height:  ${calculatorInfo.height.toString()}    Age:  ${calculatorInfo.age.toString()}  BloodType:   ${calculatorInfo.bloodType.toString()}`
-    const calcInfo2 = `Current Weight:  ${calculatorInfo.currentWeight.toString()}    Desired Weight:  ${calculatorInfo.desiredWeight.toString()}`
+    let calcInfo = '';
+    let calcInfo2 = '';
+    if (calculatorInfo.height) {
+      calcInfo = `Height:  ${calculatorInfo.height.toString()}    Age:  ${calculatorInfo.age.toString()}  BloodType:   ${calculatorInfo.bloodType.toString()}`
+      calcInfo2 = `Current Weight:  ${calculatorInfo.currentWeight.toString()}    Desired Weight:  ${calculatorInfo.desiredWeight.toString()}`
+    } else {
+
+      calcInfo = `Height:  ${calculatorInfo.heightFeet} feet ${calculatorInfo.heightInch} inches  Age:  ${calculatorInfo.age.toString()}  BloodType:   ${calculatorInfo.bloodType}`
+      calcInfo2 = `Current Weight:  ${calculatorInfo.currentWeightLbs}    Desired Weight:  ${calculatorInfo.desiredWeightLbs}`
+    }
     const calcWidth = doc.widthOfString(calcInfo);
     const calcWidth2 = doc.widthOfString(calcInfo2);
     doc.text(calcInfo, (578 - calcWidth) / 2, lineNum);
@@ -88,7 +98,7 @@ const userDownloadDiary = async (req) => {
   const { startDate, endDate } = req.body
   const startDateParse = Date.parse(startDate)
   const endDateParse = Date.parse(endDate)
-let url = ""
+  let url = ""
 
 
   try {
@@ -101,7 +111,7 @@ let url = ""
 
     if (diaryData) {
       const output = `dairy${userId}.pdf`
-       url = path.join(__dirname, '../../', "pdf", output)
+      url = path.join(__dirname, '../../', "pdf", output)
       doc.pipe(fs.createWriteStream(url));
       header(calculatorData, userinfo)
       diaryData[0].entries.map((item) => {
@@ -178,24 +188,28 @@ let url = ""
         return diaryData
 
       })
-      doc.end();
+      doc.end()
 
-      console.log('url', url)
-      fsExtra.remove(url, (err => {
-      const targetFile = 'diary,pdf'
-      //downloadFile(url, targetFile)
-     
-        if (err) console.log(err);
-        else {
-          console.log("\nDeleted file: example_file.txt");
-        }
-      }));
+      // writeStream.on('rejected', function () {
+
+      return { diaryData, calculatorData, userinfo, url }
+      // });
+
+      // const targetFile = 'diary,pdf'
+      // downloadFile(url, targetFile)
+      // console.log('url', url)
+      // fsExtra.remove(url, (err => {
+      //   if (err) console.log(err);
+      //   else {
+      //     console.log("\nDeleted file: example_file.txt");
+      //   }
+      // }));
 
     };
-    return { diaryData, calculatorData, userinfo, url }
+
 
   } catch (err) {
-    console.log("Error Archiving data");
+    console.log("Error downloading data", err);
   }
 };
 module.exports = userDownloadDiary;
