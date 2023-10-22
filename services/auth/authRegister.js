@@ -17,7 +17,7 @@ const authRegister = async (req) => {
       expiresIn: "1h",
     });
     const avatarStyles = {
-      seed: email,
+      name: email,
       style: "beam",
       size: 40,
       colors: ["#7B6C96","#E0E0E0","#FC842D","#337A02","#E6E119" ]
