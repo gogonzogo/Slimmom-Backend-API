@@ -11,7 +11,7 @@ userRouter
   .route("/user/stats/")
   .get(authorizeUser, ctrlWrapper(ctrl.userGetCalculator));
 
-userRouter.route("/user/calcuator/").post(authorizeUser, ctrlWrapper(ctrl.userSaveCalculator));
+userRouter.route("/user/calculator/").post(authorizeUser, ctrlWrapper(ctrl.userSaveCalculator));
 
 userRouter.route("/user/info/day").get(authorizeUser, ctrlWrapper(ctrl.userGetInfo))
 
