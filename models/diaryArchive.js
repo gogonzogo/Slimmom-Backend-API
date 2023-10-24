@@ -26,6 +26,13 @@ const diaryEntrySchema = new Schema(
       type: String,
       required: [true, "userId is required"],
     },
+    archiveDate: { type: String },
+    startDate: {
+      type: String,
+    },
+    endDate: {
+      type: String,
+    },
     dailyRate: {
       type: Number,
       default: 0,
