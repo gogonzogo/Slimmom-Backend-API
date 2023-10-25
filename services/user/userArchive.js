@@ -8,7 +8,7 @@ const userArchive = async (req) => {
   try {
     const userId = req.user._id;
     let daysArchived = 0;
-    // let updateDairy = ''
+    let diaryenteies = ''
     const userDiary = await Diary.findOne({ userId });
     if (userDiary) {
       let userDiaryArchive = await DiaryArchive.findOne({ userId });
@@ -31,18 +31,22 @@ const userArchive = async (req) => {
           userDiaryArchive.entries.push(newEntry);
 
           daysArchived++
-          console.log('userDiaryArchive', userDiaryArchive)
+
         }
 
         return userDiary
       });
-      console.log('daysArchived', daysArchived)
       if (daysArchived !== 0) {
         await userDiaryArchive.save();
-        // updateDairy = Diary.findOneAndUpdate({ userId }, { $pull: { 'entries.date': { $gte: startDate, $lte: endDate } } })
+        const convertStart = startDate.replaceAll('/', '-')
+        const convertEnd = endDate.replaceAll('/', '-')
+        diaryenteies = await Diary.updateMany(
+          { userId },
+          { $pull: { entries: { date: { $gte: convertStart, $lte: convertEnd } } } }
+        )
 
       }
-      return { userDiaryArchive, daysArchived, code: 200 }
+      return { diaryenteies, userDiary, code: 200 }
     }
   } catch (err) {
     console.log("Error Archiving data", err);
