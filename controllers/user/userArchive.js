@@ -1,7 +1,7 @@
 const { user: service } = require("../../services");
 
 const userArchive = async (req, res) => {
-  const result = await service.userArchive(req);
+  const result = await service.userArchive(req, res);
   if (result === 400) {
     res.status(400).json({
       status: "Bad request",

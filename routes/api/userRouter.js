@@ -17,6 +17,8 @@ userRouter.route("/user/info/day").get(authorizeUser, ctrlWrapper(ctrl.userGetIn
 
 userRouter.route("/user/archive/").post(authorizeUser, ctrlWrapper(ctrl.userArchive));
 
+userRouter.route("/user/getarchive/").get(authorizeUser, ctrlWrapper(ctrl.userGetArchive));
+
 userRouter.route("/user/deleteDiary/").post(authorizeUser, ctrlWrapper(ctrl.userDeleteDiary));
 
 userRouter.route("/user/downloadDiary/").post(authorizeUser, ctrlWrapper(ctrl.userDownloadDiary));
