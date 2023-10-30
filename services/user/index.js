@@ -8,6 +8,7 @@ const userGetArchive = require('./userGetArchive');
 const userDeleteAccount = require('./userDeleteAccount');
 const userDeleteDiary = require('./userDeleteDiary');
 const userDownloadDiary = require('./userDownloadDiary');
+const userGetarchiveDate = require('./userGetarchiveDate');
 
 
 
@@ -22,4 +23,5 @@ module.exports = {
   userDownloadDiary,
   userDeleteDiary,
   userDeleteAccount,
+  userGetarchiveDate,
 };
