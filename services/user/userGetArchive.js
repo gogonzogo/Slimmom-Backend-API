@@ -5,9 +5,9 @@ const userGetArchive = async (req) => {
     try {
         const userId = req.user._id;
         const userinfo = await User.find({ _id: userId }, { _id: 0, password: 0, token: 0 });
-        const calculatorData = await Calculator.find({ userId }, { _id: 0, userId: 0 });
+        const calculatorInfo = await Calculator.find({ userId }, { _id: 0, userId: 0 });
 
-        const userArchive = await DiaryArchive.aggregate([
+        const archiveDates = await DiaryArchive.aggregate([
             { $match: { userId } },
             { $unwind: "$entries" },
             {
@@ -22,9 +22,9 @@ const userGetArchive = async (req) => {
             { $sort: { "entries.date": 1 } }
         ])
         const archiveinfo = []
-        const archiveDate = userArchive[0]._id.archiveDate;
-        const startDate = userArchive[0]._id.startDate;
-        const endDate = userArchive[0]._id.endDate;
+        const archiveDate = archiveDates[0]._id.archiveDate;
+        const startDate = archiveDates[0]._id.startDate;
+        const endDate = archiveDates[0]._id.endDate;
 
         const diaryInfo = await DiaryArchive.findOne({ userId });
         diaryInfo.entries.map((item) => {
@@ -46,7 +46,7 @@ const userGetArchive = async (req) => {
 
 
 
-        return { userArchive, userinfo, calculatorData, archiveinfo, code: 200 }
+        return { archiveDates, userinfo, calculatorInfo, archiveinfo, code: 200 }
 
     } catch (err) {
         console.log("Error geting  Archiving List", err);
