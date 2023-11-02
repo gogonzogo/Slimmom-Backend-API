@@ -19,7 +19,7 @@ const userGetArchive = async (req) => {
                     }
                 }
             },
-            { $sort: { "entries.date": 1 } }
+            { $sort: { "_id.archiveDate": 1, "_id.startDate": 1 } }
         ])
         const archiveinfo = []
         const archiveDate = archiveDates[0]._id.archiveDate;
@@ -34,7 +34,7 @@ const userGetArchive = async (req) => {
                     archiveDate: item.archiveDate,
                     startDate: item.startDate,
                     endDate: item.endDate,
-                    dailyRat: item.dailyRate,
+                    dailyRate: item.dailyRate,
                     foodItems: item.foodItems
                 }
                 archiveinfo.push(newitem)
