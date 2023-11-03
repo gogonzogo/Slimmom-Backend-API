@@ -27,4 +27,6 @@ userRouter.route("/user/deleteAccount/").post(authorizeUser, ctrlWrapper(ctrl.us
 
 userRouter.route("/user/getarchiveDate/").post(authorizeUser, ctrlWrapper(ctrl.userGetarchiveDate));
 
+userRouter.route("/user/restoreArchive/").post(authorizeUser, ctrlWrapper(ctrl.userRestoreAchive));
+
 module.exports = userRouter;
