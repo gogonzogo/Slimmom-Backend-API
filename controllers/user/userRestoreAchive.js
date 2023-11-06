@@ -16,6 +16,7 @@ const userRestoreAchive = async (req, res) => {
         res.status(200).json({
             status: "Success",
             code: 200,
+            data: result,
         });
     }
 };
