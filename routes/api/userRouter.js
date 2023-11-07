@@ -29,4 +29,7 @@ userRouter.route("/user/getarchiveDate/").post(authorizeUser, ctrlWrapper(ctrl.u
 
 userRouter.route("/user/restoreArchive/").post(authorizeUser, ctrlWrapper(ctrl.userRestoreAchive));
 
+userRouter.route("/user/graph/").post(authorizeUser, ctrlWrapper(ctrl.userGraph));
+
+
 module.exports = userRouter;
