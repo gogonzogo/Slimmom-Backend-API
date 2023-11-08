@@ -23,18 +23,18 @@ const findClosestCalculator = async (userId, targetDate) => {
     if (!calculatorEntries.length) {
       return 404;
     }
-    const initalEntry = calculatorEntries[0];
-    let closest = initalEntry;
-    let initalDateDiff = Math.abs(
-      new Date(targetDate) - new Date(initalEntry.calculatorEntries.date)
+    const latestEntry = calculatorEntries[0];
+    let closest = latestEntry;
+    let latestDateDiff = Math.abs(
+      new Date(targetDate) - new Date(latestEntry.calculatorEntries.date)
     );
     for (const entry of calculatorEntries) {
       const currentEntryDateDiff = Math.abs(
         new Date(targetDate) - new Date(entry.calculatorEntries.date)
       );
-      if (currentEntryDateDiff > initalDateDiff) {
-        closest = entry.calculatorEntries[0];
-        initalDateDiff = currentEntryDateDiff;
+      if (currentEntryDateDiff > latestDateDiff) {
+        closest = entry;
+        latestDateDiff = currentEntryDateDiff;
       };
     };
     return closest;
