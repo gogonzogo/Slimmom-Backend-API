@@ -19,22 +19,22 @@ const findClosestCalculator = async (userId, targetDate) => {
           'calculatorEntries.date': -1,
         },
       },
-    ]);
+    ]); 
     if (!calculatorEntries.length) {
       return 404;
     }
-    const closestEntry = calculatorEntries[0];
-    let closest = closestEntry;
-    let closestDateDiff = Math.abs(
-      new Date(targetDate) - new Date(closestEntry.calculatorEntries.date)
+    const initalEntry = calculatorEntries[0];
+    let closest = initalEntry;
+    let initalDateDiff = Math.abs(
+      new Date(targetDate) - new Date(initalEntry.calculatorEntries.date)
     );
     for (const entry of calculatorEntries) {
-      const currentDateDiff = Math.abs(
+      const currentEntryDateDiff = Math.abs(
         new Date(targetDate) - new Date(entry.calculatorEntries.date)
       );
-      if (currentDateDiff < closestDateDiff) {
+      if (currentEntryDateDiff > initalDateDiff) {
         closest = entry.calculatorEntries[0];
-        closestDateDiff = currentDateDiff;
+        initalDateDiff = currentEntryDateDiff;
       };
     };
     return closest;
