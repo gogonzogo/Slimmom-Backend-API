@@ -37,7 +37,7 @@ const userSaveCalculator = async (req) => {
         calculatorEntries: [],
       });
     } else {
-      const originalEntry = userCalculator.calculatorEntries
+      const originalEntry = userCalculator.calculatorEntries[0].calculatorEntry[0]
       if (originalEntry.unitOfMeasure !== unitOfMeasure) {
         const kgToLbsMultiplier = 2.20462;
         const lbsToKgMultiplier = 0.45359237;
