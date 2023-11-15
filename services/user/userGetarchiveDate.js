@@ -26,7 +26,8 @@ const userGetarchiveDate = async (req) => {
     }
 
     catch (err) {
-        console.log("Error geting  Archived data", err);
+        console.log(err);
+        throw new Error("Error getting the archive for that date" + err.message);
     }
 }
 
