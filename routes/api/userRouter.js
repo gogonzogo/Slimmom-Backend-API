@@ -21,8 +21,6 @@ userRouter.route("/user/getarchive/").get(authorizeUser, ctrlWrapper(ctrl.userGe
 
 userRouter.route("/user/deleteDiary/").post(authorizeUser, ctrlWrapper(ctrl.userDeleteDiary));
 
-userRouter.route("/user/downloadDiary/").post(authorizeUser, ctrlWrapper(ctrl.userDownloadDiary));
-
 userRouter.route("/user/deleteAccount/").post(authorizeUser, ctrlWrapper(ctrl.userDeleteAccount));
 
 userRouter.route("/user/getarchiveDate/").post(authorizeUser, ctrlWrapper(ctrl.userGetarchiveDate));
