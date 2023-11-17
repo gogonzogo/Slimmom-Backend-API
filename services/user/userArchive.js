@@ -49,7 +49,8 @@ const userArchive = async (req) => {
       return { diaryenteies, userDiary, code: 200 }
     }
   } catch (err) {
-    console.log("Error Archiving data", err);
+    console.log(err);
+    throw new Error("Error archiving data" + err.message);
   }
 };
 

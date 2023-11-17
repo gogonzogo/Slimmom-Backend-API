@@ -49,7 +49,8 @@ const userGetArchive = async (req) => {
         return { archiveDates, userinfo, calculatorInfo, archiveinfo, code: 200 }
 
     } catch (err) {
-        console.log("Error geting  Archiving List", err);
+        console.log(err);
+        throw new Error("Error getting archive list" + err.message);
     }
 
 

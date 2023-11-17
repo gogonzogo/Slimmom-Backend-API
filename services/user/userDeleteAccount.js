@@ -10,7 +10,8 @@ const userDeleteAccount = async (req) => {
                 return 200
 
         } catch (err) {
-                console.log("Error Deleting Account");
+                console.log(err);
+                throw new Error("Error deleting account" + err.message);
         }
 };
 module.exports = userDeleteAccount;

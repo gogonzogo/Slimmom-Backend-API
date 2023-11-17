@@ -18,7 +18,6 @@ const userArchive = async (req) => {
             }
             userarchive.entries.map((item) => {
                 if (item.startDate === startDate && item.endDate === endDate && item.archiveDate === archiveDate) {
-                    console.log('item', item)
                     const newEntry = {
                         date: item.date,
                         dailyRate: item.dailyRate,
@@ -42,9 +41,6 @@ const userArchive = async (req) => {
                 )
 
             }
-            const userDiary1 = await Diary.findOne({ userId });
-            console.log('userDiary1', userDiary1)
-            console.log('userarchive', userarchive)
 
             const archiveDates = await DiaryArchive.aggregate([
                 { $match: { userId } },
@@ -65,7 +61,8 @@ const userArchive = async (req) => {
             return { code: 200, archiveDates: archiveDates }
         }
     } catch (err) {
-        console.log("Error Archiving data", err);
+        console.log(err);
+        throw new Error("Error restoring archive data" + err.message);
     }
 };
 

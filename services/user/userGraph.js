@@ -7,7 +7,6 @@ const userGraph = async (req) => {
         const userDiary = await Diary.findOne({ userId });
         const grapDairyhData = []
         const graphDiaryDates = []
-        console.log('userDiary', userDiary)
         userDiary.entries.map((item) => {
 
 
@@ -25,8 +24,6 @@ const userGraph = async (req) => {
         const graphCalcData = []
         const graphCalcDates = []
         userCalc.calculatorEntries.map((item) => {
-            console.log('item.date', item.date)
-            console.log('item.calculatorEntry[0].currentWeightLbs', item.calculatorEntry[0].currentWeightLbs)
 
             graphCalcDates.push(item.date)
             graphCalcData.push(item.calculatorEntry[0].currentWeightLbs)
@@ -35,15 +32,12 @@ const userGraph = async (req) => {
 
 
         })
-        console.log('graphCalcDates', graphCalcDates)
-        console.log('grapCalcData', graphCalcData)
-
-
 
         return { graphCalcDates: graphCalcDates, graphCalcData: graphCalcData, grapDairyhData: grapDairyhData, graphDiaryDates: graphDiaryDates, code: 200 }
 
     } catch (err) {
-        console.log("Error geting  Archiving List", err);
+        console.log(err);
+        throw new Error("Error getting graph data" + err.message);
     }
 
 
