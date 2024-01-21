@@ -53,3 +53,6 @@ Slimmom leverages a diverse set of technologies and tools for its development:
 - **State Management**: Redux-Toolkit.
 - **Deployment**: Frontend - GitHub Pages, Backend - Heroku.
 - **API Documentation**: Swagger.
+
+## API Documentation
+Explore the [Slimmom API Documentation](https://app.swaggerhub.com/apis-docs/JOSEGONZALES08/slimmom-api_docs/2.0.0) for detailed information about the available endpoints and functionalities.
